@@ -1,0 +1,32 @@
+---
+import { withBase } from "../data/site";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  href?: string;
+  ctaLabel?: string;
+}
+
+const { eyebrow, title, description, href, ctaLabel } = Astro.props;
+const isExternal = href?.startsWith("http://") || href?.startsWith("https://") || href?.startsWith("mailto:");
+const resolvedHref = href ? (isExternal ? href : withBase(href)) : undefined;
+---
+
+<aside class="border border-stone-200 bg-stone-50 px-6 py-8 sm:px-8">
+  <div class="max-w-3xl space-y-4">
+    {eyebrow && <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">{eyebrow}</p>}
+    <h2 class="font-serif text-2xl tracking-tight text-stone-950 sm:text-3xl">{title}</h2>
+    <p class="text-base leading-7 text-stone-700">{description}</p>
+
+    {resolvedHref && ctaLabel && (
+      <a
+        class="inline-flex items-center justify-center border border-stone-900 px-4 py-2 text-sm font-semibold text-stone-950 transition-colors duration-150 hover:bg-stone-900 hover:text-stone-50"
+        href={resolvedHref}
+      >
+        {ctaLabel}
+      </a>
+    )}
+  </div>
+</aside>

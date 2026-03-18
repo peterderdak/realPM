@@ -1,0 +1,30 @@
+title: Sample Principal Product Manager, Zero-to-One Bet
+company: Sample Company E
+slug: sample-principal-product-manager-zero-to-one-bet
+location: Remote, U.S.
+remote: remote
+level: staff
+archetype: zero-to-one
+stage: series-a
+applyUrl: https://example.com/jobs/sample-principal-product-manager-zero-to-one-bet
+summary: Demo listing used to model an exploratory PM role testing a new product direction inside an early-stage company.
+whyItMadeBoard:
+  - "Demo listing only: the role appears responsible for shaping an ambiguous problem space from first principles."
+  - "Demo listing only: the description suggests direct influence over what gets tested and why."
+outcomesOwned:
+  - Clarify which user problems merit deeper investment.
+  - Turn early signals into a sharper next-step product direction.
+decisionRights:
+  - Recommend which opportunities move from exploration into prototyping.
+  - Define the near-term learning agenda for the bet being explored.
+discoveryModel: "Demo entry: leans on direct customer conversation, prototype feedback, and lightweight market framing."
+teamTopology: Works with a small cross-functional team and company leadership on an emerging product bet.
+strategyScope: Spans opportunity framing, learning priorities, and transition decisions for a new initiative.
+unknowns:
+  - Target market and business model are intentionally not specified in this sample.
+  - Team size and funding runway are intentionally not claimed in this sample.
+reviewedAt: "2026-03-18"
+confidence: low
+featured: false
+draft: false
+contentStatus: sample

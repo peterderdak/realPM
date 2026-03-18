@@ -1,0 +1,30 @@
+title: Sample Senior Product Manager, Platform Foundations
+company: Sample Company A
+slug: sample-senior-product-manager-platform-foundations
+location: United States
+remote: remote
+level: senior
+archetype: platform
+stage: growth
+applyUrl: https://example.com/jobs/sample-senior-product-manager-platform-foundations
+summary: Demo listing used to validate the static job model for a platform PM role with shared internal-product scope.
+whyItMadeBoard:
+  - "Demo listing only: the role is framed around shared product outcomes instead of a backlog-taking function."
+  - "Demo listing only: the remit suggests actual prioritization tradeoffs across partner teams."
+outcomesOwned:
+  - Improve clarity and adoption of shared platform capabilities.
+  - Reduce recurring friction in common delivery workflows.
+decisionRights:
+  - Prioritize platform problems within the team planning window.
+  - Recommend sequencing tradeoffs across reliability, usability, and enablement work.
+discoveryModel: "Demo entry: interviews internal product teams, reviews workflow data, and synthesizes support themes."
+teamTopology: Embedded with engineering and design while partnering closely with multiple product teams.
+strategyScope: Owns problem definition and quarterly direction for one internal platform surface.
+unknowns:
+  - Compensation is intentionally omitted in this sample.
+  - Company size and customer count are intentionally unspecified in this sample.
+reviewedAt: "2026-03-18"
+confidence: low
+featured: true
+draft: false
+contentStatus: sample

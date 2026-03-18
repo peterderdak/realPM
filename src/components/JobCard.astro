@@ -1,0 +1,89 @@
+---
+import type { CollectionEntry } from "astro:content";
+import JobEvidencePack from "./JobEvidencePack.astro";
+import Pill from "./Pill.astro";
+import { formatJobFilterValue, getJobDetailPath } from "../data/jobs";
+import { withBase } from "../data/site";
+
+type JobEntry = CollectionEntry<"jobs">;
+
+interface Props {
+  job: JobEntry;
+}
+
+const { job } = Astro.props;
+const detailHref = withBase(getJobDetailPath(job.data.slug));
+---
+
+<article class="border border-stone-200 bg-white px-6 py-7 sm:px-7">
+  <div class="space-y-6">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div class="max-w-3xl space-y-2">
+        <p class="text-sm font-medium text-stone-600">{job.data.company}</p>
+        <h2 class="font-serif text-3xl tracking-tight text-stone-950">
+          <a class="transition-colors duration-150 hover:text-stone-700" href={detailHref}>
+            {job.data.title}
+          </a>
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <Pill label={job.data.contentStatus} />
+        {job.data.featured && <Pill label="Featured" />}
+      </div>
+    </div>
+
+    <p class="max-w-3xl text-base leading-7 text-stone-700">{job.data.summary}</p>
+
+    <dl class="grid gap-3 text-sm text-stone-700 sm:grid-cols-2 xl:grid-cols-4">
+      <div>
+        <dt class="font-semibold text-stone-950">Location</dt>
+        <dd>{job.data.location}</dd>
+      </div>
+      <div>
+        <dt class="font-semibold text-stone-950">Remote</dt>
+        <dd>{formatJobFilterValue("remote", job.data.remote)}</dd>
+      </div>
+      <div>
+        <dt class="font-semibold text-stone-950">Level</dt>
+        <dd>{formatJobFilterValue("level", job.data.level)}</dd>
+      </div>
+      <div>
+        <dt class="font-semibold text-stone-950">Stage</dt>
+        <dd>{formatJobFilterValue("stage", job.data.stage)}</dd>
+      </div>
+    </dl>
+
+    <div class="space-y-3">
+      <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
+        Why it made the board
+      </p>
+      <ul class="space-y-2">
+        {job.data.whyItMadeBoard.map((reason) => (
+          <li class="relative pl-4 text-sm leading-6 text-stone-700 before:absolute before:left-0 before:top-2 before:h-1.5 before:w-1.5 before:rounded-full before:bg-stone-400">
+            {reason}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="space-y-4 border-t border-stone-200 pt-5">
+      <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
+        Evidence pack
+      </p>
+      <JobEvidencePack job={job} />
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3 border-t border-stone-200 pt-5">
+      <p class="text-xs leading-5 text-stone-500">
+        Reviewed {job.data.reviewedAt} | Confidence {formatJobFilterValue("confidence", job.data.confidence)}
+      </p>
+      <a
+        class="inline-flex items-center justify-center border border-stone-900 px-4 py-2 text-sm font-semibold text-stone-950 transition-colors duration-150 hover:bg-stone-900 hover:text-stone-50"
+        href={detailHref}
+      >
+        View Job Detail
+      </a>
+    </div>
+  </div>
+</article>

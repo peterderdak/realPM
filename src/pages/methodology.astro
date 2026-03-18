@@ -1,0 +1,157 @@
+---
+import { getEditorialPage } from "../data/editorial";
+import CtaBlock from "../components/CtaBlock.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import Pill from "../components/Pill.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { withBase } from "../data/site";
+
+const page = await getEditorialPage("methodology");
+const evaluationDimensions = [
+  {
+    title: "Outcome ownership",
+    body: "Does the role own a real product result, workflow, or problem space that can materially improve or degrade?",
+  },
+  {
+    title: "Decision rights",
+    body: "Can the person make prioritization and tradeoff decisions, or are they just packaging someone else's calls?",
+  },
+  {
+    title: "Discovery capacity",
+    body: "Is there room to investigate the problem, talk to users, review evidence, and change direction before work hardens?",
+  },
+  {
+    title: "Product trio collaboration",
+    body: "Does the role work with engineering and design as true product collaborators, not as a one-way request pipe?",
+  },
+  {
+    title: "Strategy surface area",
+    body: "Is the PM shaping what the team should pursue, or just managing execution inside a strategy already fixed elsewhere?",
+  },
+  {
+    title: "Leadership integration",
+    body: "Will leadership actually use the PM's judgment, or does every meaningful product decision still live above the role?",
+  },
+];
+const publishingPolicy = [
+  "Mark unknowns directly instead of smoothing them over.",
+  "Verify claims when possible, especially when the role description leaves room for interpretation.",
+  "Publish fewer jobs rather than lower the bar.",
+  "Remove roles if later evidence contradicts the listing.",
+];
+const jobsHref = withBase("/jobs");
+const employersHref = withBase("/for-employers");
+---
+
+<MainLayout title={page.data.title} description={page.data.description}>
+  <div class="space-y-14">
+    <SectionIntro eyebrow="Editorial method" title={page.data.title} description={page.data.summary}>
+      <div class="flex flex-wrap gap-3">
+        <Pill label="Evidence over titles" />
+        <Pill label="Lower volume, higher bar" />
+      </div>
+    </SectionIntro>
+
+    <section class="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
+      <div class="max-w-3xl space-y-5">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          Not title ranking
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950 sm:text-5xl">
+          This site does not rank jobs by title or keywords.
+        </h2>
+        <p class="text-lg leading-8 text-stone-700">
+          A listing does not make the board because it says "product manager," "ownership," or
+          "strategy" in the right places. Titles are cheap and keywords are easier to optimize than
+          the actual role.
+        </p>
+        <p class="text-base leading-7 text-stone-700">
+          The board is trying to answer a narrower question: does this role appear to carry real
+          product accountability, real decision rights, and enough discovery capacity to improve the
+          work? If the answer is unclear, the listing does not get a free pass because the title sounds right.
+        </p>
+      </div>
+
+      <aside class="border border-stone-200 bg-white px-6 py-6 sm:px-7">
+        <div class="space-y-3">
+          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+            Working rule
+          </p>
+          <p class="text-sm leading-6 text-stone-700">
+            The site is trying to identify real product scope, not reward familiar wording.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="space-y-6 border-t border-stone-200 pt-8">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          Evaluation dimensions
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950">What the review is looking for.</h2>
+        <p class="text-base leading-7 text-stone-700">
+          No single dimension is enough on its own. The goal is to see whether the job, taken as a whole,
+          looks like product management with real scope rather than coordination work wearing a PM title.
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {evaluationDimensions.map((dimension) => (
+          <article class="border border-stone-200 bg-white px-6 py-6 sm:px-7">
+            <div class="space-y-3">
+              <h3 class="font-serif text-2xl tracking-tight text-stone-950">{dimension.title}</h3>
+              <p class="text-base leading-7 text-stone-700">{dimension.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="space-y-6 border-t border-stone-200 pt-8">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          Publishing policy
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950">The board would rather be sparse than sloppy.</h2>
+        <p class="text-base leading-7 text-stone-700">
+          Publishing fewer jobs is a feature, not a bug. If the evidence is weak, contradictory, or too
+          vague to assess, the listing should not be stretched into credibility.
+        </p>
+      </div>
+
+      <div class="border border-stone-200 bg-white px-6 py-7 sm:px-7">
+        <ul class="space-y-4">
+          {publishingPolicy.map((item, index) => (
+            <li class:list={["text-base leading-7 text-stone-700", index > 0 && "border-t border-stone-200 pt-4"]}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <CtaBlock
+      eyebrow="Use the standard"
+      title="Read the jobs and employer guidance through the same lens."
+      description="The methodology only matters if it shows up in what gets published and how employers are asked to define the role."
+    />
+
+    <section class="border-t border-stone-200 pt-8">
+      <div class="flex flex-wrap gap-3">
+        <a
+          class="inline-flex items-center justify-center border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-semibold text-stone-50 transition-colors duration-150 hover:border-stone-700 hover:bg-stone-700"
+          href={jobsHref}
+        >
+          Browse Jobs
+        </a>
+        <a
+          class="inline-flex items-center justify-center border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-stone-900 transition-colors duration-150 hover:border-stone-900"
+          href={employersHref}
+        >
+          For Employers
+        </a>
+      </div>
+    </section>
+  </div>
+</MainLayout>

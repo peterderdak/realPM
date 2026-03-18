@@ -1,0 +1,12 @@
+title: Methodology
+slug: methodology
+description: How Real PM Jobs evaluates roles based on ownership, decision rights, discovery capacity, and evidence rather than titles or keyword matching.
+summary: This board does not rank jobs by title or keyword density. It looks for accountable product work, marks unknowns, and would rather publish fewer listings than lower the bar.
+draft: false
+sections:
+  - title: Not title matching
+    body: The site does not assume that a PM title means real product scope, and it does not promote roles because they mention trendy product keywords.
+  - title: Evaluation dimensions
+    body: Roles are reviewed for ownership, decision rights, discovery capacity, cross-functional collaboration, strategy surface area, and leadership integration.
+  - title: Publishing policy
+    body: Unknowns are marked, claims are verified when possible, and roles can be removed if later evidence contradicts the listing.

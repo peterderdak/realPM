@@ -1,0 +1,172 @@
+---
+import JobCard from "../components/JobCard.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import Pill from "../components/Pill.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { getAllPublishedJobs, getJobFilterOptions } from "../data/jobs";
+
+const jobs = await getAllPublishedJobs();
+const filterOptions = getJobFilterOptions(jobs);
+---
+
+<MainLayout title="Jobs" description="All non-draft jobs on the Real PM Jobs board, with editorial evidence and client-side filtering.">
+  <div class="space-y-14">
+    <SectionIntro
+      eyebrow="Board index"
+      title="Jobs"
+      description="All non-draft jobs appear here by default. Filters refine the list in the browser when JavaScript is available, but the full board remains readable without it."
+    >
+      <div class="flex flex-wrap gap-3">
+        <Pill label={`${jobs.length} total jobs`} />
+        <Pill label="Non-draft only" />
+        <Pill label="Sample content clearly marked" />
+      </div>
+    </SectionIntro>
+
+    <section class="space-y-6 border-y border-stone-200 py-6 sm:py-7">
+      <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div class="max-w-3xl space-y-2">
+          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
+            Filters
+          </p>
+          <p class="text-sm leading-6 text-stone-700">
+            Narrow the board by archetype, level, stage, or remote model. If JavaScript is disabled,
+            the full list stays visible below.
+          </p>
+        </div>
+
+        <p class="text-sm font-medium text-stone-700" aria-live="polite">
+          <span data-visible-count>{jobs.length}</span> jobs visible
+        </p>
+      </div>
+
+      <form class="grid gap-4 sm:grid-cols-2 xl:grid-cols-[repeat(4,minmax(0,1fr))_auto]" data-jobs-filters>
+        <label class="grid gap-2">
+          <span class="text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">Archetype</span>
+          <select class="w-full border border-stone-300 bg-white px-3 py-3 text-sm text-stone-900" data-filter="archetype" name="archetype">
+            <option value="">All archetypes</option>
+            {filterOptions.archetype.map((option) => (
+              <option value={option.value}>{option.label} ({option.count})</option>
+            ))}
+          </select>
+        </label>
+
+        <label class="grid gap-2">
+          <span class="text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">Level</span>
+          <select class="w-full border border-stone-300 bg-white px-3 py-3 text-sm text-stone-900" data-filter="level" name="level">
+            <option value="">All levels</option>
+            {filterOptions.level.map((option) => (
+              <option value={option.value}>{option.label} ({option.count})</option>
+            ))}
+          </select>
+        </label>
+
+        <label class="grid gap-2">
+          <span class="text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">Stage</span>
+          <select class="w-full border border-stone-300 bg-white px-3 py-3 text-sm text-stone-900" data-filter="stage" name="stage">
+            <option value="">All stages</option>
+            {filterOptions.stage.map((option) => (
+              <option value={option.value}>{option.label} ({option.count})</option>
+            ))}
+          </select>
+        </label>
+
+        <label class="grid gap-2">
+          <span class="text-xs font-semibold uppercase tracking-[0.18em] text-stone-500">Remote</span>
+          <select class="w-full border border-stone-300 bg-white px-3 py-3 text-sm text-stone-900" data-filter="remote" name="remote">
+            <option value="">All remote models</option>
+            {filterOptions.remote.map((option) => (
+              <option value={option.value}>{option.label} ({option.count})</option>
+            ))}
+          </select>
+        </label>
+
+        <div class="flex items-end">
+          <button
+            class="inline-flex w-full items-center justify-center border border-stone-900 px-4 py-3 text-sm font-semibold text-stone-950 transition-colors duration-150 hover:bg-stone-900 hover:text-stone-50 xl:w-auto"
+            type="reset"
+          >
+            Clear Filters
+          </button>
+        </div>
+      </form>
+
+      <noscript>
+        <p class="text-sm leading-6 text-stone-600">
+          JavaScript is disabled, so filters are not interactive. The full list is shown below.
+        </p>
+      </noscript>
+    </section>
+
+    <section class="space-y-6">
+      <div class="border border-stone-200 bg-stone-100 px-6 py-6 text-sm leading-6 text-stone-700" data-empty-state hidden>
+        No jobs match the current filters. Clear one or more filters to return to the full board.
+      </div>
+
+      <ul class="space-y-6" data-jobs-list>
+        {jobs.map((job) => (
+          <li
+            data-archetype={job.data.archetype}
+            data-job-card
+            data-level={job.data.level}
+            data-remote={job.data.remote}
+            data-stage={job.data.stage}
+          >
+            <JobCard job={job} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  </div>
+</MainLayout>
+
+<script>
+  import { jobFilterKeys, matchesJobFilters } from "../utils/job-filters.js";
+
+  const filterForm = document.querySelector<HTMLFormElement>("[data-jobs-filters]");
+  const visibleCountElement = document.querySelector<HTMLElement>("[data-visible-count]");
+  const emptyState = document.querySelector<HTMLElement>("[data-empty-state]");
+  const jobCards = Array.from(document.querySelectorAll<HTMLElement>("[data-job-card]"));
+
+  if (filterForm && visibleCountElement && emptyState && jobCards.length > 0) {
+    const getFilters = () =>
+      Object.fromEntries(
+        jobFilterKeys.map((key) => {
+          const input = filterForm.querySelector<HTMLSelectElement>(`[data-filter="${key}"]`);
+
+          return [key, input?.value ?? ""];
+        }),
+      );
+
+    const updateVisibleJobs = () => {
+      const filters = getFilters();
+      let visibleJobs = 0;
+
+      jobCards.forEach((card) => {
+        const job = {
+          archetype: card.dataset.archetype ?? "",
+          level: card.dataset.level ?? "",
+          stage: card.dataset.stage ?? "",
+          remote: card.dataset.remote ?? "",
+        };
+        const isVisible = matchesJobFilters(job, filters);
+
+        card.hidden = !isVisible;
+
+        if (isVisible) {
+          visibleJobs += 1;
+        }
+      });
+
+      visibleCountElement.textContent = String(visibleJobs);
+      emptyState.hidden = visibleJobs !== 0;
+    };
+
+    filterForm.addEventListener("change", updateVisibleJobs);
+    filterForm.addEventListener("reset", () => {
+      window.requestAnimationFrame(updateVisibleJobs);
+    });
+
+    updateVisibleJobs();
+  }
+</script>

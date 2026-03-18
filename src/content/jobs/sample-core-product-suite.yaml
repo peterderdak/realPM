@@ -1,0 +1,30 @@
+title: Sample Staff Product Manager, Core Product Suite
+company: Sample Company C
+slug: sample-staff-product-manager-core-product-suite
+location: Austin, TX
+remote: on-site
+level: staff
+archetype: core-product
+stage: profitable-private
+applyUrl: https://example.com/jobs/sample-staff-product-manager-core-product-suite
+summary: Demo listing used to model a senior IC PM role with responsibility for a mature workflow surface.
+whyItMadeBoard:
+  - "Demo listing only: the remit centers on shaping a product area rather than coordinating requests."
+  - "Demo listing only: the role description implies meaningful judgment over roadmap direction."
+outcomesOwned:
+  - Improve usability and coherence across a core workflow surface.
+  - Clarify tradeoffs between continuity work and adjacent opportunity areas.
+decisionRights:
+  - Set problem priorities for the product area within the planning cycle.
+  - Recommend scope boundaries for work that crosses adjacent teams.
+discoveryModel: "Demo entry: uses account feedback, support themes, and product-usage review to frame problems."
+teamTopology: Partners with a dedicated cross-functional squad and adjacent product teams with connected workflows.
+strategyScope: Owns strategic direction for one mature product area over quarterly and annual planning horizons.
+unknowns:
+  - The operating cadence is not specified in this sample.
+  - Any regulated or compliance context is intentionally omitted in this sample.
+reviewedAt: "2026-03-18"
+confidence: low
+featured: true
+draft: false
+contentStatus: sample

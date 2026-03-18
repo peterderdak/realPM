@@ -1,0 +1,263 @@
+---
+import { getEditorialPage } from "../data/editorial";
+import CtaBlock from "../components/CtaBlock.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import Pill from "../components/Pill.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { withBase } from "../data/site";
+
+const page = await getEditorialPage("what-makes-a-pm-role-real");
+const comparisonRows = [
+  {
+    role: "Product Manager",
+    focus: "Owns product outcomes and the decisions required to improve them.",
+    accountability: "Accountable for prioritization quality, decision quality, and whether the team is solving the right problem.",
+    authority: "Can shape direction, make tradeoffs, and say no to work that does not support the product objective.",
+  },
+  {
+    role: "Product Owner",
+    focus: "Often clarifies scope and sequencing inside an established delivery context.",
+    accountability: "Accountable for maintaining clarity around work in flight, not necessarily for the broader product result.",
+    authority: "Varies widely. In many teams the role has local delivery authority but not full product-direction authority.",
+  },
+  {
+    role: "Project Manager",
+    focus: "Coordinates timelines, dependencies, communication, and execution risk.",
+    accountability: "Accountable for delivery process, alignment, and operational follow-through.",
+    authority: "Usually manages execution mechanics rather than product strategy, prioritization, or user-problem selection.",
+  },
+];
+const realWorkChecklist = [
+  "Owns a product, workflow, or problem space with a result that can improve or degrade.",
+  "Has decision rights over what is prioritized, delayed, cut, or reframed.",
+  "Can gather evidence through customer contact, usage signals, internal observation, or prototype feedback.",
+  "Works through tradeoffs instead of acting as a pass-through for stakeholder requests.",
+  "Is expected to make the product better, not just keep a process moving.",
+];
+const antiPatterns = [
+  {
+    title: "Backlog admin",
+    body: "The job is mostly grooming tickets, writing status notes, and keeping rituals alive while someone else decides what matters.",
+  },
+  {
+    title: "Delivery buffer",
+    body: "The role absorbs pressure between teams but does not own the product problem or the decision tradeoffs underneath it.",
+  },
+  {
+    title: "Stakeholder proxy",
+    body: "The PM relays requests from louder functions without enough authority to challenge, reshape, or reject them.",
+  },
+  {
+    title: "Feature-team coordinator",
+    body: "The role is attached to a team and a roadmap, but not to a durable outcome or coherent product judgment.",
+  },
+];
+const strategicPmReasons = [
+  "They connect day-to-day product decisions to actual customer and business consequences.",
+  "They improve the quality of bets, not just the speed of execution.",
+  "They reduce waste by saying no earlier, clarifying the problem faster, and sequencing work with intent.",
+  "They give cross-functional teams someone accountable for product judgment instead of shared ambiguity.",
+];
+const measurementAreas = [
+  {
+    title: "Customer outcomes",
+    body: "Did the product get meaningfully better for the people it serves, or did the team just ship more surface area?",
+  },
+  {
+    title: "Business outcomes",
+    body: "Did the work improve the commercial or operational result the product area is supposed to influence?",
+  },
+  {
+    title: "Decision quality",
+    body: "Were the calls well framed, evidence-based, and resilient under pressure, even when outcomes stayed uncertain?",
+  },
+  {
+    title: "Prioritization quality",
+    body: "Did the PM focus the team on the right problems, make clean tradeoffs, and avoid avoidable work?",
+  },
+  {
+    title: "Learning velocity",
+    body: "How quickly did the team reduce uncertainty, improve understanding, and update direction when the evidence changed?",
+  },
+];
+const jobsHref = withBase("/jobs");
+const methodologyHref = withBase("/methodology");
+const employersHref = withBase("/for-employers");
+---
+
+<MainLayout title={page.data.title} description={page.data.description}>
+  <div class="space-y-14">
+    <SectionIntro eyebrow="Editorial standards" title={page.data.title} description={page.data.summary}>
+      <div class="flex flex-wrap gap-3">
+        <Pill label="Accountability over artifacts" />
+        <Pill label="Scope and authority" />
+      </div>
+    </SectionIntro>
+
+    <section class="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
+      <div class="space-y-5">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          PM vs PO vs Project Manager
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950 sm:text-5xl">
+          The distinction is not the artifact stack.
+        </h2>
+        <p class="text-lg leading-8 text-stone-700">
+          "Roadmap versus backlog" is not the real line. A person can manage a roadmap and still have no
+          product authority. Another person can touch the backlog constantly and still be doing real PM
+          work. The actual question is simpler: who owns the outcome, who gets to make tradeoffs, and
+          who has enough room to learn before forcing a decision?
+        </p>
+      </div>
+
+      <aside class="border border-stone-200 bg-white px-6 py-6 sm:px-7">
+        <div class="space-y-3">
+          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">Quick read</p>
+          <p class="text-sm leading-6 text-stone-700">
+            A real PM role is accountable for a result and has the authority to change what the team does
+            in pursuit of that result.
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="space-y-6 border-t border-stone-200 pt-8">
+      <div class="grid gap-5 lg:grid-cols-3">
+        {comparisonRows.map((row) => (
+          <article class="border border-stone-200 bg-white px-6 py-7 sm:px-7">
+            <div class="space-y-4">
+              <h3 class="font-serif text-2xl tracking-tight text-stone-950">{row.role}</h3>
+              <div class="space-y-3 text-sm leading-6 text-stone-700">
+                <p><span class="font-semibold text-stone-950">Primary focus:</span> {row.focus}</p>
+                <p><span class="font-semibold text-stone-950">Accountability:</span> {row.accountability}</p>
+                <p><span class="font-semibold text-stone-950">Authority:</span> {row.authority}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="space-y-6 border-t border-stone-200 pt-8">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          What real PM work looks like
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950">The work is judgment, not ceremony.</h2>
+        <p class="text-base leading-7 text-stone-700">
+          Real PM work is not defined by how many documents exist or how neatly the backlog is arranged.
+          It is defined by whether the PM is expected to frame problems, make decisions, and improve results.
+        </p>
+      </div>
+
+      <div class="border border-stone-200 bg-white px-6 py-7 sm:px-7">
+        <ul class="grid gap-4 md:grid-cols-2">
+          {realWorkChecklist.map((item) => (
+            <li class="relative pl-5 text-base leading-7 text-stone-700 before:absolute before:left-0 before:top-3 before:h-1.5 before:w-1.5 before:rounded-full before:bg-stone-500">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="space-y-6 border-t border-stone-200 pt-8">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">Roles to avoid</p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950">Watch for title inflation.</h2>
+        <p class="text-base leading-7 text-stone-700">
+          These roles can be useful to an organization. They are just not the same job as product
+          management, even when the listing borrows PM language.
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2">
+        {antiPatterns.map((item) => (
+          <article class="border border-stone-200 bg-stone-50 px-6 py-6 sm:px-7">
+            <div class="space-y-3">
+              <h3 class="font-serif text-2xl tracking-tight text-stone-950">{item.title}</h3>
+              <p class="text-base leading-7 text-stone-700">{item.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="grid gap-10 border-t border-stone-200 pt-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)]">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          Why strategic PMs matter
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950">Strategy shows up in daily product judgment.</h2>
+        <p class="text-base leading-7 text-stone-700">
+          "Strategic PM" should not mean someone who sits far away from execution and talks in abstractions.
+          It should mean someone accountable for the quality of product choices over time. That includes the
+          choices that shape what gets built, what gets cut, and what gets learned before the team commits.
+        </p>
+      </div>
+
+      <div class="border border-stone-200 bg-white px-6 py-7 sm:px-7">
+        <ul class="space-y-4">
+          {strategicPmReasons.map((item, index) => (
+            <li class:list={["text-base leading-7 text-stone-700", index > 0 && "border-t border-stone-200 pt-4"]}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="space-y-6 border-t border-stone-200 pt-8">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          How to measure a strategic PM
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950">Measure the product judgment, not the paperwork.</h2>
+        <p class="text-base leading-7 text-stone-700">
+          A strategic PM is not best measured by how polished the roadmap looks or how many artifacts they
+          maintain. Measure whether the role improves decisions, focus, and outcomes.
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {measurementAreas.map((item) => (
+          <article class="border border-stone-200 bg-white px-6 py-6 sm:px-7">
+            <div class="space-y-3">
+              <h3 class="font-serif text-2xl tracking-tight text-stone-950">{item.title}</h3>
+              <p class="text-base leading-7 text-stone-700">{item.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <CtaBlock
+      eyebrow="Read the board"
+      title="Use the rest of the site with the same standard in mind."
+      description="Review the job board, the methodology, and the employer guidance through the lens of accountability, authority, and discovery capacity."
+    />
+
+    <section class="border-t border-stone-200 pt-8">
+      <div class="flex flex-wrap gap-3">
+        <a
+          class="inline-flex items-center justify-center border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-semibold text-stone-50 transition-colors duration-150 hover:border-stone-700 hover:bg-stone-700"
+          href={jobsHref}
+        >
+          Browse Jobs
+        </a>
+        <a
+          class="inline-flex items-center justify-center border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-stone-900 transition-colors duration-150 hover:border-stone-900"
+          href={methodologyHref}
+        >
+          Read Methodology
+        </a>
+        <a
+          class="inline-flex items-center justify-center border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-stone-900 transition-colors duration-150 hover:border-stone-900"
+          href={employersHref}
+        >
+          For Employers
+        </a>
+      </div>
+    </section>
+  </div>
+</MainLayout>

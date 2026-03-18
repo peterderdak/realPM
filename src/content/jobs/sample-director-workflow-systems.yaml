@@ -1,0 +1,30 @@
+title: Sample Director of Product, Workflow Systems
+company: Sample Company F
+slug: sample-director-of-product-workflow-systems
+location: San Francisco, CA
+remote: hybrid
+level: director
+archetype: core-product
+stage: growth
+applyUrl: https://example.com/jobs/sample-director-of-product-workflow-systems
+summary: Demo listing used to model a product leadership role overseeing a workflow-heavy product area.
+whyItMadeBoard:
+  - "Demo listing only: the role appears to own product direction rather than simply coordinate team delivery."
+  - "Demo listing only: the scope implies decisions across multiple squads and shared product standards."
+outcomesOwned:
+  - Align multiple squads around a coherent workflow-system direction.
+  - Improve product quality and consistency across a connected product area.
+decisionRights:
+  - Set priorities for the broader product area in partnership with functional leads.
+  - Recommend staffing and sequencing tradeoffs across the owned surface.
+discoveryModel: "Demo entry: synthesizes customer feedback, product telemetry, and cross-team review sessions."
+teamTopology: Leads PM work across multiple squads while partnering with engineering, design, and go-to-market peers.
+strategyScope: Owns medium-term direction for a multi-team workflow area with quarterly and annual planning input.
+unknowns:
+  - Reporting lines are intentionally omitted in this sample.
+  - No claim is made about company scale or public-market performance.
+reviewedAt: "2026-03-18"
+confidence: low
+featured: false
+draft: false
+contentStatus: sample

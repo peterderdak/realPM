@@ -1,0 +1,34 @@
+---
+import Container from "./Container.astro";
+import { siteConfig, withBase } from "../data/site";
+
+const navigation = siteConfig.primaryNavigation.map((item) => ({
+  ...item,
+  href: withBase(item.href),
+}));
+---
+
+<header class="border-b border-stone-200 bg-stone-50/85 backdrop-blur-sm">
+  <Container class="py-5 sm:py-6">
+    <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+      <a class="max-w-sm space-y-1" href={withBase("/")}>
+        <span class="block text-xs font-semibold uppercase tracking-[0.22em] text-stone-500">
+          Editorial job board
+        </span>
+        <span class="block font-serif text-2xl tracking-tight text-stone-950">{siteConfig.name}</span>
+      </a>
+
+      <nav aria-label="Primary">
+        <ul class="flex flex-wrap gap-x-5 gap-y-3 text-sm font-medium text-stone-700">
+          {navigation.map((item) => (
+            <li>
+              <a class="transition-colors duration-150 hover:text-stone-950" href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </Container>
+</header>

@@ -1,0 +1,30 @@
+title: Sample Product Manager, Growth Loops
+company: Sample Company B
+slug: sample-product-manager-growth-loops
+location: New York, NY
+remote: hybrid
+level: mid
+archetype: growth
+stage: series-b
+applyUrl: https://example.com/jobs/sample-product-manager-growth-loops
+summary: Demo listing used to model a PM role focused on onboarding, activation, and retention loops.
+whyItMadeBoard:
+  - "Demo listing only: the scope appears tied to product decisions, not just campaign execution."
+  - "Demo listing only: the role owns cross-functional experimentation choices and sequencing."
+outcomesOwned:
+  - Improve activation flow clarity for new users.
+  - Reduce avoidable drop-off during early product setup.
+decisionRights:
+  - Define which product hypotheses enter the near-term experiment queue.
+  - Recommend tradeoffs between onboarding friction and data collection needs.
+discoveryModel: "Demo entry: pairs lightweight user research with experiment reviews and funnel analysis."
+teamTopology: Works with engineering, design, lifecycle marketing, and analytics on a shared growth surface.
+strategyScope: Shapes quarterly growth bets for one part of the customer journey.
+unknowns:
+  - The exact experimentation stack is not specified in this sample.
+  - Market segment and pricing model are intentionally omitted in this sample.
+reviewedAt: "2026-03-18"
+confidence: low
+featured: false
+draft: false
+contentStatus: sample

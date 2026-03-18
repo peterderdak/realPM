@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type JobEntry = CollectionEntry<"jobs">;
+
+interface Props {
+  job: JobEntry;
+}
+
+const { job } = Astro.props;
+
+const evidenceItems = [
+  {
+    label: "Outcomes",
+    value: job.data.outcomesOwned[0],
+  },
+  {
+    label: "Decision rights",
+    value: job.data.decisionRights[0],
+  },
+  {
+    label: "Discovery",
+    value: job.data.discoveryModel,
+  },
+  {
+    label: "Team topology",
+    value: job.data.teamTopology,
+  },
+];
+---
+
+<div class="grid gap-4 sm:grid-cols-2">
+  {evidenceItems.map((item) => (
+    <div class="space-y-2 border-t border-stone-200 pt-4 first:pt-0 sm:first:border-t-0">
+      <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
+        {item.label}
+      </p>
+      <p class="text-sm leading-6 text-stone-700">{item.value}</p>
+    </div>
+  ))}
+</div>

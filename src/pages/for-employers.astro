@@ -1,0 +1,213 @@
+---
+import { getEditorialPage } from "../data/editorial";
+import CtaBlock from "../components/CtaBlock.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import Pill from "../components/Pill.astro";
+import SectionIntro from "../components/SectionIntro.astro";
+import { siteConfig, withBase } from "../data/site";
+
+const page = await getEditorialPage("for-employers");
+const internalLinks = {
+  jobs: withBase("/jobs"),
+  methodology: withBase("/methodology"),
+};
+const shouldHireSignals = [
+  "The founder or current product leader can describe the product strategy but can no longer personally run every product decision.",
+  "There is enough engineering capacity that prioritization quality now matters as much as raw execution speed.",
+  "The team needs someone to connect user problems, business goals, and engineering tradeoffs into one decision loop.",
+  "You are ready to let a PM say no, cut work, reframe scope, and change direction when the evidence warrants it.",
+];
+const hiringMistakes = [
+  "You want someone to absorb requests so founders do not have to make hard calls.",
+  "You mostly need a project manager, chief-of-staff, or delivery lead but are calling it PM because the title feels more senior.",
+  "The team is still one small squad with a founder making every product choice in real time.",
+  "You expect the PM to own the roadmap but not the underlying product decisions.",
+];
+const interviewQuestions = [
+  "Tell me about a time you had to make a hard tradeoff between customer value, engineering cost, and business pressure. What did you choose and why?",
+  "Describe a situation where you said no to a high-visibility request. What gave you confidence to do it?",
+  "Give an example of changing direction because new evidence contradicted the original plan. What did you learn and how fast did you adapt?",
+  "What outcomes were truly yours in your last role, and which decisions were actually outside your control?",
+  "How do you work with engineering early enough that solution constraints shape the decision before the team is already committed?",
+];
+const scorecardAreas = [
+  {
+    title: "Business outcomes",
+    body: "Did the PM improve the commercial or operational result the product area is expected to influence?",
+  },
+  {
+    title: "Customer outcomes",
+    body: "Did the product become more useful, clearer, or more effective for the user, not just more feature-rich?",
+  },
+  {
+    title: "Prioritization quality",
+    body: "Did the PM focus the team on the highest-value problems and make clean tradeoffs when resources were tight?",
+  },
+  {
+    title: "Learning generated",
+    body: "Did the PM help the team reduce uncertainty quickly and convert evidence into better choices?",
+  },
+  {
+    title: "Product strategy clarity",
+    body: "Did the PM make the direction of the product more coherent, legible, and durable over time?",
+  },
+];
+---
+
+<MainLayout title={page.data.title} description={page.data.description}>
+  <div class="space-y-14">
+    <SectionIntro eyebrow="For founders and hiring managers" title={page.data.title} description={page.data.summary}>
+      <div class="flex flex-wrap gap-3">
+        <Pill label="Delegate decisions" />
+        <Pill label="Do not hire too early" />
+      </div>
+    </SectionIntro>
+
+    <section class="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(18rem,0.9fr)]">
+      <div class="max-w-3xl space-y-5">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          Do you actually need a PM?
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950 sm:text-5xl">
+          Some companies do not need a PM yet.
+        </h2>
+        <p class="text-lg leading-8 text-stone-700">
+          That is not a failure. It usually means the founder still has direct product context, the
+          team is small enough to decide quickly, or the real gap is delivery discipline instead of
+          product judgment.
+        </p>
+        <p class="text-base leading-7 text-stone-700">
+          A PM hire makes sense only when you are ready to delegate decisions about what problem to
+          solve, what to defer, and what to learn next. If you are not willing to hand over that
+          authority, do not hire a PM yet. Hire for the problem you actually have.
+        </p>
+      </div>
+
+      <aside class="border border-stone-200 bg-white px-6 py-6 sm:px-7">
+        <div class="space-y-3">
+          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+            Better question
+          </p>
+          <p class="text-sm leading-6 text-stone-700">
+            Are you ready to trust someone else with product tradeoffs, not just backlog cleanup?
+          </p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="space-y-6 border-t border-stone-200 pt-8">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          When a startup should hire a PM
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950">Hire when the decision load is real.</h2>
+        <p class="text-base leading-7 text-stone-700">
+          The right moment is not "when we have a roadmap." It is when product choices are becoming
+          expensive, messy, and too important to live entirely in a founder's head.
+        </p>
+      </div>
+
+      <div class="border border-stone-200 bg-white px-6 py-7 sm:px-7">
+        <ul class="grid gap-4 md:grid-cols-2">
+          {shouldHireSignals.map((item) => (
+            <li class="relative pl-5 text-base leading-7 text-stone-700 before:absolute before:left-0 before:top-3 before:h-1.5 before:w-1.5 before:rounded-full before:bg-stone-500">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="space-y-6 border-t border-stone-200 pt-8">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          When hiring a PM is a mistake
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950">Do not use a PM title to hide a different need.</h2>
+        <p class="text-base leading-7 text-stone-700">
+          If the company is not ready to hand off product authority, the PM will be trapped between
+          expectations and reality. That usually produces frustration, not leverage.
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2">
+        {hiringMistakes.map((item) => (
+          <article class="border border-stone-200 bg-stone-50 px-6 py-6 sm:px-7">
+            <p class="text-base leading-7 text-stone-700">{item}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="space-y-6 border-t border-stone-200 pt-8">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          How to interview for strategy instead of backlog
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950">Ask for judgment under constraint.</h2>
+        <p class="text-base leading-7 text-stone-700">
+          Stop optimizing for polished frameworks and backlog fluency. Ask questions that reveal how a
+          candidate makes tradeoffs, works with engineering early, and changes course when the evidence changes.
+        </p>
+      </div>
+
+      <div class="border border-stone-200 bg-white px-6 py-7 sm:px-7">
+        <ol class="space-y-4">
+          {interviewQuestions.map((question, index) => (
+            <li class:list={["text-base leading-7 text-stone-700", index > 0 && "border-t border-stone-200 pt-4"]}>
+              <span class="font-semibold text-stone-950">{index + 1}.</span> {question}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="space-y-6 border-t border-stone-200 pt-8">
+      <div class="max-w-3xl space-y-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
+          What a good PM scorecard looks like
+        </p>
+        <h2 class="font-serif text-4xl tracking-tight text-stone-950">Measure the quality of product leadership.</h2>
+        <p class="text-base leading-7 text-stone-700">
+          A good PM scorecard should reflect outcomes and judgment, not just shipping cadence or document quality.
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {scorecardAreas.map((area) => (
+          <article class="border border-stone-200 bg-white px-6 py-6 sm:px-7">
+            <div class="space-y-3">
+              <h3 class="font-serif text-2xl tracking-tight text-stone-950">{area.title}</h3>
+              <p class="text-base leading-7 text-stone-700">{area.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="border-t border-stone-200 pt-8">
+      <div class="flex flex-wrap gap-3">
+        <a
+          class="inline-flex items-center justify-center border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-semibold text-stone-50 transition-colors duration-150 hover:border-stone-700 hover:bg-stone-700"
+          href={internalLinks.methodology}
+        >
+          Read Methodology
+        </a>
+        <a
+          class="inline-flex items-center justify-center border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-stone-900 transition-colors duration-150 hover:border-stone-900"
+          href={internalLinks.jobs}
+        >
+          Browse Jobs
+        </a>
+      </div>
+    </section>
+
+    <CtaBlock
+      eyebrow="Submit a role"
+      title="If you are ready to hire a PM with real scope, send the role."
+      description="Use the placeholder contact link below for now. When you replace it with your real email or form, this becomes the employer submission path."
+      href={siteConfig.employerSubmissionHref}
+      ctaLabel="Contact or Submit a Role"
+    />
+  </div>
+</MainLayout>
