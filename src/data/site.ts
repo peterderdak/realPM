@@ -13,9 +13,9 @@ const primaryNavigation: NavigationItem[] = [
 export const siteConfig = {
   name: "Real PM Jobs",
   description:
-    "A curated board for product roles with real outcome ownership, decision rights, and discovery capacity.",
+    "A tighter board for PM roles with real outcome ownership, decision rights, and discovery capacity.",
   thesis:
-    "A PM title means very little without outcome ownership, decision rights, and discovery capacity.",
+    "Real PM Jobs screens for genuine scope: outcomes to own, decisions to make, and room to learn.",
   employerSubmissionHref:
     "mailto:YOUR_EMAIL@example.com?subject=Real%20PM%20Jobs%20Role%20Submission",
   socialImagePath: "/social-card.svg",

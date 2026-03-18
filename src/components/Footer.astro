@@ -10,14 +10,14 @@ const navigation = siteConfig.footerNavigation.map((item) => ({
 
 <footer class="border-t border-black/5 bg-transparent">
   <Container class="pb-12 pt-8 sm:pb-14 sm:pt-10">
-    <div class="surface-panel-soft px-7 py-8 sm:px-10 sm:py-10">
+    <div class="panel-dark px-7 py-8 sm:px-10 sm:py-10">
       <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
         <div class="max-w-2xl space-y-4">
           <p class="eyebrow-label">Real PM Jobs</p>
-          <h2 class="text-3xl font-semibold leading-[0.96] tracking-[-0.055em] text-zinc-950 sm:text-4xl">
-            A narrower board for higher-scope product roles.
+          <h2 class="text-3xl font-semibold leading-[0.93] tracking-[-0.08em] text-white sm:text-4xl">
+            A sharper board for real product scope.
           </h2>
-          <p class="body-copy max-w-xl">{siteConfig.thesis}</p>
+          <p class="max-w-xl text-base leading-7 text-zinc-300">{siteConfig.thesis}</p>
         </div>
 
         <div class="space-y-4">
@@ -25,14 +25,14 @@ const navigation = siteConfig.footerNavigation.map((item) => ({
             <ul class="flex flex-wrap gap-2">
               {navigation.map((item) => (
                 <li>
-                  <a class="nav-link" href={item.href}>{item.label}</a>
+                  <a class="button-dark px-4 py-2.5" href={item.href}>{item.label}</a>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <p class="text-sm leading-6 text-zinc-500">
-            Curated for mandate and role scope, not title inflation.
+          <p class="text-sm leading-6 text-zinc-400">
+            Built to make real PM mandate visible faster.
           </p>
         </div>
       </div>

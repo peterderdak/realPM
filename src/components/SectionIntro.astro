@@ -15,7 +15,7 @@ const { eyebrow, title, description, headingTag: HeadingTag = "h1" } = Astro.pro
   <div class="max-w-3xl space-y-4">
     <HeadingTag class="section-title">{title}</HeadingTag>
 
-    {description && <p class="lede-text max-w-2xl !text-[1.05rem] sm:!text-[1.15rem]">{description}</p>}
+    {description && <p class="lede-text max-w-2xl">{description}</p>}
   </div>
 
   <slot />

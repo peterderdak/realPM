@@ -15,58 +15,38 @@ const { job } = Astro.props;
 const detailHref = withBase(getJobDetailPath(job.data.slug));
 ---
 
-<article class="surface-panel px-6 py-6 sm:px-8 sm:py-8">
+<article class="panel px-6 py-6 sm:px-8 sm:py-8">
   <div class="space-y-7">
     <div class="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
       <div class="max-w-3xl space-y-4">
         <div class="flex flex-wrap gap-2">
           <Pill label={job.data.contentStatus} />
           {job.data.featured && <Pill label="Featured" />}
-          <Pill label={formatJobFilterValue("archetype", job.data.archetype)} />
         </div>
 
         <div class="space-y-3">
           <p class="text-sm font-medium text-zinc-500">{job.data.company}</p>
-          <h2 class="text-3xl font-semibold leading-[0.97] tracking-[-0.05em] text-zinc-950 sm:text-[2.2rem]">
+          <h2 class="text-[2rem] font-semibold leading-[0.94] tracking-[-0.07em] text-zinc-950 sm:text-[2.5rem]">
             <a class="transition-colors duration-150 hover:text-zinc-700" href={detailHref}>
               {job.data.title}
             </a>
           </h2>
-          <p class="lede-text max-w-3xl !text-[1.05rem] sm:!text-[1.15rem]">{job.data.summary}</p>
+          <p class="lede-text max-w-3xl !text-[1rem] sm:!text-[1.08rem]">{job.data.summary}</p>
         </div>
       </div>
 
-      <a class="button-secondary shrink-0 px-4 py-2.5" href={detailHref}>
-        View Role
-      </a>
+      <a class="button-secondary shrink-0 px-4 py-2.5" href={detailHref}>Open Job Detail</a>
     </div>
 
-    <dl class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-      <div class="surface-hairline px-4 py-4">
-        <dt class="eyebrow-label !tracking-[0.22em]">Location</dt>
-        <dd class="mt-2 text-sm font-medium text-zinc-800">{job.data.location}</dd>
-      </div>
-      <div class="surface-hairline px-4 py-4">
-        <dt class="eyebrow-label !tracking-[0.22em]">Remote</dt>
-        <dd class="mt-2 text-sm font-medium text-zinc-800">
-          {formatJobFilterValue("remote", job.data.remote)}
-        </dd>
-      </div>
-      <div class="surface-hairline px-4 py-4">
-        <dt class="eyebrow-label !tracking-[0.22em]">Level</dt>
-        <dd class="mt-2 text-sm font-medium text-zinc-800">
-          {formatJobFilterValue("level", job.data.level)}
-        </dd>
-      </div>
-      <div class="surface-hairline px-4 py-4">
-        <dt class="eyebrow-label !tracking-[0.22em]">Stage</dt>
-        <dd class="mt-2 text-sm font-medium text-zinc-800">
-          {formatJobFilterValue("stage", job.data.stage)}
-        </dd>
-      </div>
-    </dl>
+    <div class="flex flex-wrap gap-2">
+      <Pill label={job.data.location} />
+      <Pill label={formatJobFilterValue("remote", job.data.remote)} />
+      <Pill label={formatJobFilterValue("level", job.data.level)} />
+      <Pill label={formatJobFilterValue("stage", job.data.stage)} />
+      <Pill label={formatJobFilterValue("archetype", job.data.archetype)} />
+    </div>
 
-    <div class="grid gap-7 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)]">
+    <div class="grid gap-7 xl:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]">
       <div class="space-y-4">
         <p class="eyebrow-label">Why it made the board</p>
         <ul class="detail-list">
@@ -86,9 +66,7 @@ const detailHref = withBase(getJobDetailPath(job.data.slug));
       <p class="text-sm leading-6 text-zinc-500">
         Reviewed {formatReviewedDate(job.data.reviewedAt)}. Confidence {formatJobFilterValue("confidence", job.data.confidence)}.
       </p>
-      <a class="button-primary px-5 py-3" href={detailHref}>
-        Open Job Detail
-      </a>
+      <a class="button-primary px-5 py-3" href={detailHref}>View Role</a>
     </div>
   </div>
 </article>

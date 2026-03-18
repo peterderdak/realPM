@@ -13,52 +13,60 @@ const filterOptions = getJobFilterOptions(jobs);
   description="Browse all non-draft roles on Real PM Jobs. The board stays visible without JavaScript, with lightweight client-side filters when available."
 >
   <div class="space-y-12 sm:space-y-14">
-    <section class="surface-panel-soft px-6 py-8 sm:px-8 sm:py-10 lg:px-10">
-      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-        <div class="max-w-3xl space-y-5">
+    <section class="grid gap-5 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]">
+      <div class="panel-dark px-6 py-8 sm:px-8 sm:py-10 lg:px-10">
+        <div class="max-w-4xl space-y-7">
           <div class="flex flex-wrap gap-2">
             <Pill label={`${jobs.length} published roles`} />
             <Pill label="Drafts excluded" />
-            <Pill label="Progressively enhanced filters" />
           </div>
 
           <div class="space-y-4">
-            <p class="eyebrow-label">Board index</p>
-            <h1 class="display-title max-w-3xl !text-[3.6rem] sm:!text-[4.5rem] lg:!text-[5.2rem]">
-              Jobs with actual product scope.
-            </h1>
-            <p class="lede-text max-w-3xl">
-              Every non-draft role is visible by default. Filters narrow the list in-browser when
-              JavaScript is available, but the full board remains readable without it.
+            <p class="eyebrow-label text-zinc-400">Board index</p>
+            <h1 class="display-title max-w-4xl text-white">A smaller board with a sharper bar.</h1>
+            <p class="max-w-3xl text-[1.06rem] leading-8 text-zinc-300 sm:text-[1.24rem] sm:leading-9">
+              Every non-draft role appears here by default. Filters narrow the board in-browser when
+              JavaScript is available, but the full list remains readable without it.
             </p>
           </div>
         </div>
+      </div>
 
-        <div class="surface-hairline px-5 py-5 sm:min-w-[13rem]">
-          <p class="eyebrow-label !tracking-[0.22em]">Visible now</p>
-          <p class="mt-3 text-4xl font-semibold tracking-[-0.06em] text-zinc-950" aria-live="polite">
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
+        <div class="panel px-6 py-6 sm:px-7">
+          <p class="eyebrow-label">Visible now</p>
+          <p class="mt-3 text-5xl font-semibold tracking-[-0.08em] text-zinc-950" aria-live="polite">
             <span data-visible-count>{jobs.length}</span>
           </p>
-          <p class="mt-2 text-sm leading-6 text-zinc-600">
-            Roles on screen after filtering.
+          <p class="mt-3 text-sm leading-6 text-zinc-600">Roles currently on screen after filtering.</p>
+        </div>
+
+        <div class="panel px-6 py-6 sm:px-7">
+          <p class="eyebrow-label">Board logic</p>
+          <p class="mt-3 text-sm leading-6 text-zinc-600">
+            This board is sorted by editorial relevance and review freshness, not by volume,
+            velocity, or marketplace tricks.
           </p>
         </div>
       </div>
     </section>
 
-    <section class="surface-panel px-6 py-6 sm:px-8 sm:py-8">
+    <section class="panel px-6 py-6 sm:px-8 sm:py-8">
       <div class="space-y-6">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div class="max-w-3xl space-y-2">
-            <p class="eyebrow-label">Filter the board</p>
+            <p class="eyebrow-label">Filters</p>
             <p class="body-copy">
-              Use archetype, level, stage, and remote model to narrow the list. If JavaScript is
-              off, the filters stay visible but the full board remains available below.
+              Filter by archetype, level, stage, or remote model. The experience enhances in the
+              browser, but the baseline remains a complete static board.
             </p>
           </div>
 
-          <div class="surface-hairline px-4 py-3 text-sm leading-6 text-zinc-600">
-            Scope over title. Evidence over keywords.
+          <div class="flex flex-wrap gap-2">
+            <Pill label="Archetype" />
+            <Pill label="Level" />
+            <Pill label="Stage" />
+            <Pill label="Remote" />
           </div>
         </div>
 
@@ -66,7 +74,7 @@ const filterOptions = getJobFilterOptions(jobs);
           <label class="grid gap-2">
             <span class="eyebrow-label !tracking-[0.22em]">Archetype</span>
             <select
-              class="rounded-[1.25rem] border border-black/10 bg-white px-4 py-3 text-sm text-zinc-900 shadow-sm"
+              class="rounded-[1.25rem] border border-black/10 bg-white/80 px-4 py-3 text-sm text-zinc-900 shadow-sm backdrop-blur-sm"
               data-filter="archetype"
               name="archetype"
             >
@@ -80,7 +88,7 @@ const filterOptions = getJobFilterOptions(jobs);
           <label class="grid gap-2">
             <span class="eyebrow-label !tracking-[0.22em]">Level</span>
             <select
-              class="rounded-[1.25rem] border border-black/10 bg-white px-4 py-3 text-sm text-zinc-900 shadow-sm"
+              class="rounded-[1.25rem] border border-black/10 bg-white/80 px-4 py-3 text-sm text-zinc-900 shadow-sm backdrop-blur-sm"
               data-filter="level"
               name="level"
             >
@@ -94,7 +102,7 @@ const filterOptions = getJobFilterOptions(jobs);
           <label class="grid gap-2">
             <span class="eyebrow-label !tracking-[0.22em]">Stage</span>
             <select
-              class="rounded-[1.25rem] border border-black/10 bg-white px-4 py-3 text-sm text-zinc-900 shadow-sm"
+              class="rounded-[1.25rem] border border-black/10 bg-white/80 px-4 py-3 text-sm text-zinc-900 shadow-sm backdrop-blur-sm"
               data-filter="stage"
               name="stage"
             >
@@ -108,7 +116,7 @@ const filterOptions = getJobFilterOptions(jobs);
           <label class="grid gap-2">
             <span class="eyebrow-label !tracking-[0.22em]">Remote</span>
             <select
-              class="rounded-[1.25rem] border border-black/10 bg-white px-4 py-3 text-sm text-zinc-900 shadow-sm"
+              class="rounded-[1.25rem] border border-black/10 bg-white/80 px-4 py-3 text-sm text-zinc-900 shadow-sm backdrop-blur-sm"
               data-filter="remote"
               name="remote"
             >
@@ -133,7 +141,7 @@ const filterOptions = getJobFilterOptions(jobs);
     </section>
 
     <section class="space-y-6">
-      <div class="surface-panel-soft px-6 py-6 text-sm leading-6 text-zinc-700" data-empty-state hidden>
+      <div class="panel-muted px-6 py-6 text-sm leading-6 text-zinc-700" data-empty-state hidden>
         No roles match the current filters. Clear one or more filters to return to the full board.
       </div>
 
