@@ -1,27 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">Real PM Jobs social card</title>
-  <desc id="desc">Editorial social card for Real PM Jobs.</desc>
-  <rect width="1200" height="630" fill="#f8f7f4" />
-  <rect x="32" y="32" width="1136" height="566" rx="18" fill="#fcfbf9" stroke="#d6d3d1" stroke-width="2" />
-  <g fill="#78716c" font-family="'SF Pro Text', 'Segoe UI', Arial, sans-serif" font-size="22" font-weight="600" letter-spacing="6">
-    <text x="84" y="110">REAL PM JOBS</text>
+  <desc id="desc">Social card for Real PM Jobs.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8f7f3" />
+      <stop offset="100%" stop-color="#efeee9" />
+    </linearGradient>
+    <radialGradient id="glow" cx="20%" cy="10%" r="60%">
+      <stop offset="0%" stop-color="#d8e7ff" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#d8e7ff" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+  <rect x="36" y="36" width="1128" height="558" rx="34" fill="rgba(255,255,255,0.9)" stroke="rgba(15,23,42,0.08)" stroke-width="2" />
+
+  <g font-family="'SF Pro Text', 'Segoe UI Variable', 'Segoe UI', Arial, sans-serif" fill="#101113">
+    <rect x="84" y="88" width="188" height="42" rx="21" fill="rgba(255,255,255,0.95)" stroke="rgba(15,23,42,0.08)" />
+    <text x="111" y="115" font-size="18" font-weight="700" letter-spacing="3.8">REAL PM JOBS</text>
+
+    <text x="84" y="218" font-size="78" font-weight="700" letter-spacing="-4.6">Most PM jobs</text>
+    <text x="84" y="302" font-size="78" font-weight="700" letter-spacing="-4.6">aren't actually</text>
+    <text x="84" y="386" font-size="78" font-weight="700" letter-spacing="-4.6">PM jobs.</text>
+
+    <text x="84" y="464" font-size="30" font-weight="500" fill="#4b5563">
+      Curated for outcome ownership, decision rights, and discovery capacity.
+    </text>
   </g>
-  <g fill="#1c1917" font-family="Iowan Old Style, 'Palatino Linotype', Georgia, serif" font-size="72">
-    <text x="84" y="220">Most PM jobs</text>
-    <text x="84" y="304">aren't actually</text>
-    <text x="84" y="388">PM jobs.</text>
-  </g>
-  <g fill="#44403c" font-family="'SF Pro Text', 'Segoe UI', Arial, sans-serif" font-size="30">
-    <text x="84" y="474">Outcome ownership.</text>
-    <text x="84" y="520">Decision rights.</text>
-    <text x="84" y="566">Discovery capacity.</text>
-  </g>
-  <line x1="812" y1="120" x2="1080" y2="120" stroke="#d6d3d1" stroke-width="2" />
-  <line x1="812" y1="250" x2="1080" y2="250" stroke="#d6d3d1" stroke-width="2" />
-  <line x1="812" y1="380" x2="1080" y2="380" stroke="#d6d3d1" stroke-width="2" />
-  <g fill="#1c1917" font-family="Iowan Old Style, 'Palatino Linotype', Georgia, serif" font-size="28">
-    <text x="812" y="105">Editorial job board</text>
-    <text x="812" y="235">Higher bar, fewer roles</text>
-    <text x="812" y="365">Scope over title</text>
+
+  <g font-family="'SF Pro Text', 'Segoe UI Variable', 'Segoe UI', Arial, sans-serif">
+    <rect x="782" y="122" width="318" height="96" rx="28" fill="rgba(255,255,255,0.82)" stroke="rgba(15,23,42,0.08)" />
+    <text x="818" y="158" font-size="20" font-weight="700" letter-spacing="2.8" fill="#6b7280">OUTCOME OWNERSHIP</text>
+    <text x="818" y="190" font-size="24" font-weight="500" fill="#1f2937">Scope first. Title second.</text>
+
+    <rect x="782" y="246" width="318" height="96" rx="28" fill="rgba(255,255,255,0.82)" stroke="rgba(15,23,42,0.08)" />
+    <text x="818" y="282" font-size="20" font-weight="700" letter-spacing="2.8" fill="#6b7280">DECISION RIGHTS</text>
+    <text x="818" y="314" font-size="24" font-weight="500" fill="#1f2937">Fewer jobs. Clearer mandate.</text>
+
+    <rect x="782" y="370" width="318" height="96" rx="28" fill="rgba(255,255,255,0.82)" stroke="rgba(15,23,42,0.08)" />
+    <text x="818" y="406" font-size="20" font-weight="700" letter-spacing="2.8" fill="#6b7280">DISCOVERY CAPACITY</text>
+    <text x="818" y="438" font-size="24" font-weight="500" fill="#1f2937">Evidence over keywords.</text>
   </g>
 </svg>

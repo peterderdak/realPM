@@ -14,17 +14,18 @@ const isExternal = href?.startsWith("http://") || href?.startsWith("https://") |
 const resolvedHref = href ? (isExternal ? href : withBase(href)) : undefined;
 ---
 
-<aside class="border border-stone-200 bg-stone-50 px-6 py-8 sm:px-8">
-  <div class="max-w-3xl space-y-4">
-    {eyebrow && <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">{eyebrow}</p>}
-    <h2 class="font-serif text-2xl tracking-tight text-stone-950 sm:text-3xl">{title}</h2>
-    <p class="text-base leading-7 text-stone-700">{description}</p>
+<aside class="surface-panel-soft px-6 py-7 sm:px-8 sm:py-9">
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+    <div class="max-w-3xl space-y-4">
+      {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
+      <h2 class="text-3xl font-semibold leading-[0.96] tracking-[-0.055em] text-zinc-950 sm:text-4xl">
+        {title}
+      </h2>
+      <p class="body-copy max-w-2xl">{description}</p>
+    </div>
 
     {resolvedHref && ctaLabel && (
-      <a
-        class="inline-flex items-center justify-center border border-stone-900 px-4 py-2 text-sm font-semibold text-stone-950 transition-colors duration-150 hover:bg-stone-900 hover:text-stone-50"
-        href={resolvedHref}
-      >
+      <a class="button-primary px-5 py-3" href={resolvedHref}>
         {ctaLabel}
       </a>
     )}

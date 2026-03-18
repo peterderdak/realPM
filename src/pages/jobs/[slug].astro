@@ -3,7 +3,12 @@ import type { GetStaticPaths } from "astro";
 import type { CollectionEntry } from "astro:content";
 import Pill from "../../components/Pill.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
-import { formatJobFilterValue, getAllPublishedJobs, getJobDetailPath } from "../../data/jobs";
+import {
+  formatJobFilterValue,
+  formatReviewedDate,
+  getAllPublishedJobs,
+  getJobDetailPath,
+} from "../../data/jobs";
 import { withBase } from "../../data/site";
 
 type JobEntry = CollectionEntry<"jobs">;
@@ -46,149 +51,213 @@ const evidenceSections = [
     title: "Decision rights",
     items: job.data.decisionRights,
   },
+  {
+    title: "Unknowns",
+    items:
+      job.data.unknowns.length > 0
+        ? job.data.unknowns
+        : ["No open unknowns are recorded for this entry yet."],
+  },
 ];
 ---
 
 <MainLayout title={job.data.title} description={job.data.summary}>
-  <div class="space-y-14">
-    <a class="inline-flex text-sm font-medium text-stone-600 transition-colors duration-150 hover:text-stone-950" href={jobsHref}>
-      Back to Jobs
-    </a>
+  <div class="space-y-10 sm:space-y-12">
+    <a class="button-ghost -ml-4 px-4" href={jobsHref}>Back to Jobs</a>
 
-    <section class="space-y-6 border-b border-stone-200 pb-8">
-      <div class="flex flex-wrap gap-2">
-        <Pill label={job.data.contentStatus} />
-        {job.data.featured && <Pill label="Featured" />}
-        <Pill label={formatJobFilterValue("archetype", job.data.archetype)} />
+    <section class="surface-panel-soft px-6 py-8 sm:px-8 sm:py-10 lg:px-10">
+      <div class="grid gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(19rem,0.42fr)] xl:items-end">
+        <div class="space-y-6">
+          <div class="flex flex-wrap gap-2">
+            <Pill label={job.data.contentStatus} />
+            {job.data.featured && <Pill label="Featured" />}
+            <Pill label={formatJobFilterValue("archetype", job.data.archetype)} />
+            <Pill label={formatJobFilterValue("level", job.data.level)} />
+          </div>
+
+          <div class="max-w-4xl space-y-4">
+            <p class="eyebrow-label">Role detail</p>
+            <p class="text-sm font-medium text-zinc-500">{job.data.company}</p>
+            <h1 class="display-title max-w-4xl !text-[3.3rem] sm:!text-[4.4rem] lg:!text-[5rem]">
+              {job.data.title}
+            </h1>
+            <p class="lede-text max-w-3xl">{job.data.summary}</p>
+          </div>
+
+          <dl class="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+            <div class="surface-hairline px-4 py-4">
+              <dt class="eyebrow-label !tracking-[0.22em]">Location</dt>
+              <dd class="mt-2 text-sm font-medium text-zinc-800">{job.data.location}</dd>
+            </div>
+            <div class="surface-hairline px-4 py-4">
+              <dt class="eyebrow-label !tracking-[0.22em]">Remote</dt>
+              <dd class="mt-2 text-sm font-medium text-zinc-800">
+                {formatJobFilterValue("remote", job.data.remote)}
+              </dd>
+            </div>
+            <div class="surface-hairline px-4 py-4">
+              <dt class="eyebrow-label !tracking-[0.22em]">Level</dt>
+              <dd class="mt-2 text-sm font-medium text-zinc-800">
+                {formatJobFilterValue("level", job.data.level)}
+              </dd>
+            </div>
+            <div class="surface-hairline px-4 py-4">
+              <dt class="eyebrow-label !tracking-[0.22em]">Archetype</dt>
+              <dd class="mt-2 text-sm font-medium text-zinc-800">
+                {formatJobFilterValue("archetype", job.data.archetype)}
+              </dd>
+            </div>
+            <div class="surface-hairline px-4 py-4">
+              <dt class="eyebrow-label !tracking-[0.22em]">Stage</dt>
+              <dd class="mt-2 text-sm font-medium text-zinc-800">
+                {formatJobFilterValue("stage", job.data.stage)}
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <aside class="surface-panel px-6 py-6 sm:px-7">
+          <div class="space-y-5">
+            <div class="space-y-2">
+              <p class="eyebrow-label">Board note</p>
+              <p class="text-sm leading-6 text-zinc-700">
+                This listing is curated for role scope, not title alone. The board looks for real
+                ownership, real authority, and real room for discovery.
+              </p>
+            </div>
+
+            <div class="keyline space-y-2">
+              <p class="eyebrow-label">Review</p>
+              <p class="text-sm leading-6 text-zinc-700">
+                Reviewed {formatReviewedDate(job.data.reviewedAt)} with{" "}
+                {formatJobFilterValue("confidence", job.data.confidence).toLowerCase()} confidence.
+              </p>
+            </div>
+
+            <div class="keyline space-y-3">
+              <p class="eyebrow-label">Action</p>
+              <a
+                class="button-primary w-full"
+                href={applyHref}
+                rel="noreferrer"
+                target="_blank"
+              >
+                Open Apply Link
+              </a>
+              <a class="button-secondary w-full" href={methodologyHref}>Read Methodology</a>
+            </div>
+
+            <div class="keyline space-y-2">
+              <p class="eyebrow-label">Content status</p>
+              <p class="text-sm leading-6 text-zinc-700">
+                This entry is marked {job.data.contentStatus}. Replace or upgrade it before treating
+                it as verified.
+              </p>
+            </div>
+          </div>
+        </aside>
       </div>
-
-      <div class="max-w-4xl space-y-3">
-        <p class="text-sm font-medium text-stone-600">{job.data.company}</p>
-        <h1 class="font-serif text-4xl tracking-tight text-stone-950 sm:text-5xl">{job.data.title}</h1>
-        <p class="text-lg leading-8 text-stone-700">{job.data.summary}</p>
-      </div>
-
-      <dl class="grid gap-4 text-sm text-stone-700 sm:grid-cols-2 xl:grid-cols-5">
-        <div>
-          <dt class="font-semibold text-stone-950">Location</dt>
-          <dd>{job.data.location}</dd>
-        </div>
-        <div>
-          <dt class="font-semibold text-stone-950">Remote</dt>
-          <dd>{formatJobFilterValue("remote", job.data.remote)}</dd>
-        </div>
-        <div>
-          <dt class="font-semibold text-stone-950">Level</dt>
-          <dd>{formatJobFilterValue("level", job.data.level)}</dd>
-        </div>
-        <div>
-          <dt class="font-semibold text-stone-950">Archetype</dt>
-          <dd>{formatJobFilterValue("archetype", job.data.archetype)}</dd>
-        </div>
-        <div>
-          <dt class="font-semibold text-stone-950">Stage</dt>
-          <dd>{formatJobFilterValue("stage", job.data.stage)}</dd>
-        </div>
-      </dl>
     </section>
 
-    <section class="grid gap-10 xl:grid-cols-[minmax(0,1.18fr)_minmax(18rem,0.82fr)]">
-      <div class="space-y-10">
-        <section class="space-y-4">
-          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
-            Why it made the board
-          </p>
-          <ul class="space-y-3">
-            {job.data.whyItMadeBoard.map((reason) => (
-              <li class="relative pl-5 text-base leading-7 text-stone-700 before:absolute before:left-0 before:top-3 before:h-1.5 before:w-1.5 before:rounded-full before:bg-stone-400">
-                {reason}
-              </li>
-            ))}
-          </ul>
+    <section class="grid gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,0.44fr)]">
+      <div class="space-y-8">
+        <section class="surface-panel px-6 py-7 sm:px-8 sm:py-8">
+          <div class="space-y-4">
+            <p class="eyebrow-label">Why it made the board</p>
+            <ul class="detail-list">
+              {job.data.whyItMadeBoard.map((reason) => (
+                <li>{reason}</li>
+              ))}
+            </ul>
+          </div>
         </section>
 
-        <section class="space-y-6">
-          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
-            Evidence pack
-          </p>
-          <div class="grid gap-8 md:grid-cols-2">
+        <section class="space-y-5">
+          <div class="space-y-3">
+            <p class="eyebrow-label">Evidence pack</p>
+            <h2 class="section-title max-w-3xl !text-[2.4rem] sm:!text-[3rem]">
+              The signals behind the listing.
+            </h2>
+          </div>
+
+          <div class="grid gap-4 md:grid-cols-2">
             {evidenceSections.map((section) => (
-              <section class="space-y-3 border-t border-stone-200 pt-4 md:pt-5">
-                <h2 class="font-serif text-2xl tracking-tight text-stone-950">{section.title}</h2>
-                <ul class="space-y-3">
-                  {section.items.map((item) => (
-                    <li class="relative pl-5 text-base leading-7 text-stone-700 before:absolute before:left-0 before:top-3 before:h-1.5 before:w-1.5 before:rounded-full before:bg-stone-400">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+              <section class="surface-panel px-6 py-6 sm:px-7">
+                <div class="space-y-4">
+                  <h3 class="text-2xl font-semibold leading-[0.98] tracking-[-0.05em] text-zinc-950">
+                    {section.title}
+                  </h3>
+                  <ul class="detail-list">
+                    {section.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                </div>
               </section>
             ))}
 
-            <section class="space-y-3 border-t border-stone-200 pt-4 md:pt-5">
-              <h2 class="font-serif text-2xl tracking-tight text-stone-950">Discovery model</h2>
-              <p class="text-base leading-7 text-stone-700">{job.data.discoveryModel}</p>
+            <section class="surface-panel px-6 py-6 sm:px-7">
+              <div class="space-y-4">
+                <h3 class="text-2xl font-semibold leading-[0.98] tracking-[-0.05em] text-zinc-950">
+                  Discovery model
+                </h3>
+                <p class="body-copy">{job.data.discoveryModel}</p>
+              </div>
             </section>
 
-            <section class="space-y-3 border-t border-stone-200 pt-4 md:pt-5">
-              <h2 class="font-serif text-2xl tracking-tight text-stone-950">Team topology</h2>
-              <p class="text-base leading-7 text-stone-700">{job.data.teamTopology}</p>
+            <section class="surface-panel px-6 py-6 sm:px-7">
+              <div class="space-y-4">
+                <h3 class="text-2xl font-semibold leading-[0.98] tracking-[-0.05em] text-zinc-950">
+                  Team topology
+                </h3>
+                <p class="body-copy">{job.data.teamTopology}</p>
+              </div>
             </section>
 
-            <section class="space-y-3 border-t border-stone-200 pt-4 md:pt-5">
-              <h2 class="font-serif text-2xl tracking-tight text-stone-950">Strategy scope</h2>
-              <p class="text-base leading-7 text-stone-700">{job.data.strategyScope}</p>
-            </section>
-
-            <section class="space-y-3 border-t border-stone-200 pt-4 md:pt-5">
-              <h2 class="font-serif text-2xl tracking-tight text-stone-950">Unknowns</h2>
-              {job.data.unknowns.length > 0 ? (
-                <ul class="space-y-3">
-                  {job.data.unknowns.map((item) => (
-                    <li class="relative pl-5 text-base leading-7 text-stone-700 before:absolute before:left-0 before:top-3 before:h-1.5 before:w-1.5 before:rounded-full before:bg-stone-300">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p class="text-base leading-7 text-stone-700">No open unknowns are recorded for this entry.</p>
-              )}
+            <section class="surface-panel px-6 py-6 sm:px-7 md:col-span-2">
+              <div class="space-y-4">
+                <h3 class="text-2xl font-semibold leading-[0.98] tracking-[-0.05em] text-zinc-950">
+                  Strategy scope
+                </h3>
+                <p class="body-copy max-w-3xl">{job.data.strategyScope}</p>
+              </div>
             </section>
           </div>
         </section>
 
         {relatedJobs.length > 0 && (
-          <section class="space-y-5 border-t border-stone-200 pt-8">
-            <div class="space-y-2">
-              <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
-                Related jobs
-              </p>
-              <h2 class="font-serif text-3xl tracking-tight text-stone-950">More roles with adjacent scope</h2>
-              <p class="max-w-3xl text-base leading-7 text-stone-700">
-                These are chosen by shared archetype first, then by shared stage if there are not enough same-archetype matches.
+          <section class="space-y-5">
+            <div class="space-y-3">
+              <p class="eyebrow-label">Related jobs</p>
+              <h2 class="section-title max-w-3xl !text-[2.4rem] sm:!text-[3rem]">
+                More roles with adjacent scope.
+              </h2>
+              <p class="body-copy max-w-2xl">
+                Related roles are chosen by shared archetype first, then by shared stage if there
+                are not enough same-archetype matches.
               </p>
             </div>
 
-            <div class="grid gap-5 lg:grid-cols-2">
+            <div class="grid gap-4 lg:grid-cols-2">
               {relatedJobs.map((relatedJob) => (
-                <article class="border border-stone-200 bg-white px-5 py-5 sm:px-6">
-                  <div class="space-y-4">
+                <article class="surface-panel px-6 py-6 sm:px-7">
+                  <div class="space-y-5">
                     <div class="flex flex-wrap gap-2">
                       <Pill label={formatJobFilterValue("archetype", relatedJob.data.archetype)} />
                       <Pill label={formatJobFilterValue("stage", relatedJob.data.stage)} />
                     </div>
 
-                    <div class="space-y-2">
-                      <p class="text-sm font-medium text-stone-600">{relatedJob.data.company}</p>
-                      <h3 class="font-serif text-2xl tracking-tight text-stone-950">
+                    <div class="space-y-3">
+                      <p class="text-sm font-medium text-zinc-500">{relatedJob.data.company}</p>
+                      <h3 class="text-[1.75rem] font-semibold leading-[0.98] tracking-[-0.05em] text-zinc-950">
                         <a
-                          class="transition-colors duration-150 hover:text-stone-700"
+                          class="transition-colors duration-150 hover:text-zinc-700"
                           href={withBase(getJobDetailPath(relatedJob.data.slug))}
                         >
                           {relatedJob.data.title}
                         </a>
                       </h3>
-                      <p class="text-sm leading-6 text-stone-700">{relatedJob.data.summary}</p>
+                      <p class="text-sm leading-6 text-zinc-600">{relatedJob.data.summary}</p>
                     </div>
                   </div>
                 </article>
@@ -198,47 +267,26 @@ const evidenceSections = [
         )}
       </div>
 
-      <aside class="space-y-6 border border-stone-200 bg-white px-6 py-6 sm:px-7">
-        <div class="space-y-2">
-          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
-            Review notes
-          </p>
-          <p class="text-sm leading-6 text-stone-700">
-            Reviewed {job.data.reviewedAt} with {formatJobFilterValue("confidence", job.data.confidence)} confidence.
-          </p>
+      <aside class="space-y-4 xl:sticky xl:top-28 xl:self-start">
+        <div class="surface-panel px-6 py-6 sm:px-7">
+          <div class="space-y-4">
+            <p class="eyebrow-label">Methodology note</p>
+            <p class="text-sm leading-6 text-zinc-700">
+              Real PM Jobs does not rank roles by title or keyword match. Listings stay on the
+              board only while the evidence still suggests meaningful product scope.
+            </p>
+            <a class="button-secondary w-full" href={methodologyHref}>Why this role qualified</a>
+          </div>
         </div>
 
-        <div class="space-y-2 border-t border-stone-200 pt-5">
-          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
-            Methodology note
-          </p>
-          <p class="text-sm leading-6 text-stone-700">
-            Listings are curated for role scope, not just title. A PM title alone is not enough if the mandate does not include ownership, decisions, and discovery.
-          </p>
-          <a class="text-sm font-medium text-stone-700 underline decoration-stone-300 underline-offset-4 transition-colors duration-150 hover:text-stone-950" href={methodologyHref}>
-            Read the methodology
-          </a>
-        </div>
-
-        <div class="space-y-2 border-t border-stone-200 pt-5">
-          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
-            External application
-          </p>
-          <a
-            class="inline-flex items-center justify-center border border-stone-900 px-4 py-2 text-sm font-semibold text-stone-950 transition-colors duration-150 hover:bg-stone-900 hover:text-stone-50"
-            href={applyHref}
-          >
-            Open Apply Link
-          </a>
-        </div>
-
-        <div class="space-y-2 border-t border-stone-200 pt-5">
-          <p class="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-stone-500">
-            Board status
-          </p>
-          <p class="text-sm leading-6 text-stone-700">
-            This entry is marked {job.data.contentStatus}. Replace or upgrade it before treating it as verified.
-          </p>
+        <div class="surface-panel-soft px-6 py-6 sm:px-7">
+          <div class="space-y-3">
+            <p class="eyebrow-label">Quick read</p>
+            <p class="text-sm leading-6 text-zinc-700">
+              Strong PM roles make the outcome, authority, and learning loop legible. This detail
+              page is meant to surface those signals fast.
+            </p>
+          </div>
         </div>
       </aside>
     </section>

@@ -147,6 +147,14 @@ export function getJobDetailPath(slug: string) {
   return `/jobs/${slug}`;
 }
 
+export function formatReviewedDate(reviewedAt: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(`${reviewedAt}T00:00:00`));
+}
+
 export function filterJobs(jobs: JobEntry[], filters: JobFilters) {
   return jobs.filter((job) => {
     if (filters.archetype && job.data.archetype !== filters.archetype) {

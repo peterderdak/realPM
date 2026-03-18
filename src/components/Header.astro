@@ -6,29 +6,63 @@ const navigation = siteConfig.primaryNavigation.map((item) => ({
   ...item,
   href: withBase(item.href),
 }));
+const homeHref = withBase("/");
+const jobsHref = withBase("/jobs");
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) => {
+  const normalizedHref = href.replace(/\/$/, "") || "/";
+
+  if (normalizedHref === homeHref.replace(/\/$/, "") || normalizedHref === "/") {
+    return currentPath === normalizedHref;
+  }
+
+  return currentPath === normalizedHref || currentPath.startsWith(`${normalizedHref}/`);
+};
 ---
 
-<header class="border-b border-stone-200 bg-stone-50/85 backdrop-blur-sm">
-  <Container class="py-5 sm:py-6">
-    <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-      <a class="max-w-sm space-y-1" href={withBase("/")}>
-        <span class="block text-xs font-semibold uppercase tracking-[0.22em] text-stone-500">
-          Editorial job board
-        </span>
-        <span class="block font-serif text-2xl tracking-tight text-stone-950">{siteConfig.name}</span>
-      </a>
+<header class="sticky top-0 z-40 border-b border-black/5 bg-[rgba(248,247,243,0.9)] backdrop-blur-xl">
+  <Container class="py-4 sm:py-5">
+    <div class="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+      <div class="flex items-center justify-between gap-6">
+        <a class="inline-flex items-center gap-4" href={homeHref}>
+          <span class="flex h-11 w-11 items-center justify-center rounded-[1.25rem] border border-black/6 bg-white text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-zinc-950 shadow-sm">
+            RP
+          </span>
 
-      <nav aria-label="Primary">
-        <ul class="flex flex-wrap gap-x-5 gap-y-3 text-sm font-medium text-stone-700">
-          {navigation.map((item) => (
-            <li>
-              <a class="transition-colors duration-150 hover:text-stone-950" href={item.href}>
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+          <span class="space-y-1">
+            <span class="block text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-zinc-500">
+              Scope-first board
+            </span>
+            <span class="block text-[1.05rem] font-semibold tracking-[-0.04em] text-zinc-950 sm:text-[1.12rem]">
+              {siteConfig.name}
+            </span>
+          </span>
+        </a>
+
+        <a class="button-primary hidden px-4 py-2.5 sm:inline-flex xl:hidden" href={jobsHref}>
+          Browse Jobs
+        </a>
+      </div>
+
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between xl:flex-1 xl:justify-end">
+        <nav aria-label="Primary">
+          <ul class="flex flex-wrap gap-1.5">
+            {navigation.map((item) => (
+              <li>
+                <a
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  class:list={["nav-link", isActive(item.href) && "nav-link-active"]}
+                  href={item.href}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <a class="button-primary hidden px-4 py-2.5 xl:inline-flex" href={jobsHref}>Browse Jobs</a>
+      </div>
     </div>
   </Container>
 </header>

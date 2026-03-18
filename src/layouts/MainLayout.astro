@@ -29,6 +29,7 @@ const socialImageUrl = Astro.site
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <meta name="theme-color" content="#f8f7f3" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
@@ -46,11 +47,16 @@ const socialImageUrl = Astro.site
     {socialImageUrl && <meta name="twitter:image" content={socialImageUrl} />}
     <title>{pageTitle}</title>
   </head>
-  <body class="min-h-screen bg-stone-50 text-stone-900 antialiased">
+  <body class="min-h-screen text-zinc-950 antialiased">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <div class="flex min-h-screen flex-col">
+    <div class="relative isolate flex min-h-screen flex-col overflow-x-hidden">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[28rem] bg-[radial-gradient(circle_at_top,rgba(160,194,247,0.18),transparent_40%),radial-gradient(circle_at_22%_18%,rgba(255,255,255,0.78),transparent_20%)]"
+      >
+      </div>
       <Header />
-      <main id="main-content" class="flex-1 py-12 sm:py-16">
+      <main id="main-content" class="flex-1 pb-20 pt-10 sm:pb-24 sm:pt-14">
         <Container>
           <slot />
         </Container>

@@ -13,37 +13,31 @@ const methodologyHref = withBase("/methodology");
   description="The page you requested could not be found on Real PM Jobs."
   noIndex={true}
 >
-  <div class="space-y-12">
-    <section class="border-y border-stone-200 py-12 sm:py-16">
+  <div class="space-y-10">
+    <section class="surface-panel-soft px-6 py-8 sm:px-8 sm:py-10 lg:px-10">
       <div class="max-w-3xl space-y-6">
-        <Pill label="404" />
-        <h1 class="font-serif text-5xl tracking-tight text-stone-950 sm:text-6xl">That page is not here.</h1>
-        <p class="text-lg leading-8 text-stone-700">
-          The link may be outdated, the URL may be wrong, or the page may have been removed after a
-          review. Use the main board and methodology pages to keep moving.
-        </p>
+        <div class="flex flex-wrap gap-2">
+          <Pill label="404" />
+          <Pill label="Not found" />
+        </div>
+
+        <div class="space-y-4">
+          <p class="eyebrow-label">Missing page</p>
+          <h1 class="display-title max-w-3xl !text-[3.4rem] sm:!text-[4.4rem]">
+            That page is not here.
+          </h1>
+          <p class="lede-text max-w-2xl !text-[1.05rem] sm:!text-[1.15rem]">
+            The link may be outdated, the URL may be wrong, or the page may have been removed after
+            review. Use the board and methodology pages to keep moving.
+          </p>
+        </div>
       </div>
     </section>
 
     <section class="flex flex-wrap gap-3">
-      <a
-        class="inline-flex items-center justify-center border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-semibold text-stone-50 transition-colors duration-150 hover:border-stone-700 hover:bg-stone-700"
-        href={jobsHref}
-      >
-        Browse Jobs
-      </a>
-      <a
-        class="inline-flex items-center justify-center border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-stone-900 transition-colors duration-150 hover:border-stone-900"
-        href={methodologyHref}
-      >
-        Read Methodology
-      </a>
-      <a
-        class="inline-flex items-center justify-center border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-stone-900 transition-colors duration-150 hover:border-stone-900"
-        href={homeHref}
-      >
-        Go Home
-      </a>
+      <a class="button-primary" href={jobsHref}>Browse Jobs</a>
+      <a class="button-secondary" href={methodologyHref}>Read Methodology</a>
+      <a class="button-secondary" href={homeHref}>Go Home</a>
     </section>
   </div>
 </MainLayout>

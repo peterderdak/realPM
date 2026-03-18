@@ -10,16 +10,12 @@ const { eyebrow, title, description, headingTag: HeadingTag = "h1" } = Astro.pro
 ---
 
 <section class="space-y-5">
-  {eyebrow && (
-    <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">{eyebrow}</p>
-  )}
+  {eyebrow && <p class="eyebrow-label">{eyebrow}</p>}
 
   <div class="max-w-3xl space-y-4">
-    <HeadingTag class="font-serif text-4xl tracking-tight text-stone-950 sm:text-5xl">
-      {title}
-    </HeadingTag>
+    <HeadingTag class="section-title">{title}</HeadingTag>
 
-    {description && <p class="text-lg leading-8 text-stone-700">{description}</p>}
+    {description && <p class="lede-text max-w-2xl !text-[1.05rem] sm:!text-[1.15rem]">{description}</p>}
   </div>
 
   <slot />

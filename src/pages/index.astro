@@ -3,150 +3,129 @@ import MainLayout from "../layouts/MainLayout.astro";
 import CtaBlock from "../components/CtaBlock.astro";
 import Pill from "../components/Pill.astro";
 import SectionIntro from "../components/SectionIntro.astro";
-import { getFeaturedJobs } from "../data/jobs";
+import { formatJobFilterValue, getFeaturedJobs, getJobDetailPath } from "../data/jobs";
 import { siteConfig, withBase } from "../data/site";
 
-const featuredJobs = await getFeaturedJobs();
+const featuredJobs = (await getFeaturedJobs()).slice(0, 3);
 const jobsHref = withBase("/jobs");
 const methodologyHref = withBase("/methodology");
 const employersHref = withBase("/for-employers");
 
-const primaryLinkClasses =
-  "inline-flex items-center justify-center border border-stone-900 bg-stone-900 px-5 py-3 text-sm font-semibold text-stone-50 transition-colors duration-150 hover:bg-stone-700 hover:border-stone-700";
-const secondaryLinkClasses =
-  "inline-flex items-center justify-center border border-stone-300 bg-white px-5 py-3 text-sm font-semibold text-stone-900 transition-colors duration-150 hover:border-stone-900";
-
-const signals = [
+const heroSignals = [
   {
     title: "Outcome ownership",
-    description:
-      "The role owns a real result, not just a queue. We look for accountability tied to a product area, workflow, or problem space that can actually move.",
+    body: "Someone is clearly accountable for a product result, not just the movement of work.",
   },
   {
     title: "Decision rights",
-    description:
-      "The PM needs room to choose. That includes prioritization authority, sequencing judgment, and a visible say in what the team will not do.",
+    body: "The PM can make tradeoffs, set priorities, and define what the team should not do.",
   },
   {
     title: "Discovery capacity",
-    description:
-      "The role needs time and permission to learn. If a PM is expected to ship without customer contact, evidence, or exploration, the title is doing too much work.",
+    body: "The role has room to learn through evidence, not just execute an inherited plan.",
   },
 ];
 
 const exclusions = [
-  {
-    title: "delivery-buffer",
-    description:
-      "Roles that exist mainly to absorb requests, protect timelines, or keep a queue moving without owning the product problem.",
-  },
-  {
-    title: "backlog-admin",
-    description:
-      "Roles centered on ticket grooming, status traffic, and coordination ritual, with little authority over what matters or why.",
-  },
-  {
-    title: "stakeholder-proxy",
-    description:
-      "Roles that relay other people's priorities without enough mandate to define outcomes, make tradeoffs, or run discovery.",
-  },
+  "Delivery-buffer roles that mainly absorb pressure and keep work flowing.",
+  "Backlog-admin roles centered on tickets, rituals, and status maintenance.",
+  "Stakeholder-proxy roles with title-level expectations but no actual authority.",
+  "Feature-team coordinator roles that optimize process while avoiding product judgment.",
 ];
-
-const formatLabel = (value: string) =>
-  value
-    .split("-")
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
 ---
 
 <MainLayout
   title={siteConfig.name}
-  description="Most PM jobs are not actually PM jobs. Real PM Jobs filters for outcome ownership, decision rights, and discovery capacity."
+  description="Most PM jobs are not actually PM jobs. Real PM Jobs is a curated board for roles with real outcome ownership, decision rights, and discovery capacity."
 >
   <div class="space-y-24 sm:space-y-28">
-    <section class="border-y border-stone-200 py-12 sm:py-16">
-      <div class="grid gap-10 lg:grid-cols-[minmax(0,1.55fr)_minmax(18rem,0.9fr)] lg:items-start">
-        <div class="space-y-8">
-          <Pill label="Editorial PM job board" />
+    <section class="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] lg:items-stretch">
+      <div class="surface-panel-soft px-6 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+        <div class="max-w-4xl space-y-8">
+          <div class="flex flex-wrap gap-2">
+            <Pill label="Editorial job board" />
+            <Pill label="Manual review" />
+            <Pill label="Static and curated" />
+          </div>
 
-          <div class="max-w-3xl space-y-6">
-            <h1 class="font-serif text-5xl tracking-tight text-stone-950 sm:text-6xl">
-              Most PM jobs aren&apos;t actually PM jobs.
-            </h1>
-            <p class="text-xl leading-8 text-stone-700 sm:text-2xl sm:leading-9">
-              Real PM Jobs filters for roles with outcome ownership, decision rights, and discovery
-              capacity. If the mandate is missing, the title does not make it a PM job.
+          <div class="space-y-5">
+            <p class="eyebrow-label">A narrower board for product roles with actual mandate</p>
+            <h1 class="display-title max-w-4xl">Most PM jobs aren&apos;t actually PM jobs.</h1>
+            <p class="lede-text max-w-3xl">
+              Real PM Jobs filters for outcome ownership, decision rights, and discovery capacity.
+              If the mandate is missing, the title does not rescue the role.
             </p>
-            <p class="max-w-2xl text-base leading-7 text-stone-600 sm:text-lg sm:leading-8">
-              This is not a catch-all board for anything adjacent to product. It is a narrower
-              publication for roles that still expect a PM to think clearly, make tradeoffs, and
-              learn from the work.
+            <p class="body-copy max-w-2xl">
+              This is not a general-purpose PM listing site. It is a stricter publication for
+              product roles that still expect judgment, prioritization, and learning.
             </p>
           </div>
 
           <div class="flex flex-wrap gap-3">
-            <a class={primaryLinkClasses} href={jobsHref}>Browse Jobs</a>
-            <a class={secondaryLinkClasses} href={methodologyHref}>See Methodology</a>
+            <a class="button-primary" href={jobsHref}>Browse Jobs</a>
+            <a class="button-secondary" href={methodologyHref}>See Methodology</a>
           </div>
-        </div>
 
-        <aside class="border border-stone-200 bg-white px-6 py-6 sm:px-7">
-          <div class="space-y-5">
-            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
-              What gets through
-            </p>
-            <div class="space-y-4">
-              <div class="space-y-1">
-                <p class="font-serif text-xl tracking-tight text-stone-950">Real outcome ownership</p>
-                <p class="text-sm leading-6 text-stone-600">
-                  Someone is clearly on the hook for a product result, not just the movement of work.
-                </p>
-              </div>
-              <div class="space-y-1 border-t border-stone-200 pt-4">
-                <p class="font-serif text-xl tracking-tight text-stone-950">Actual decision rights</p>
-                <p class="text-sm leading-6 text-stone-600">
-                  The role can set priorities, make tradeoffs, and define what the team will not do.
-                </p>
-              </div>
-              <div class="space-y-1 border-t border-stone-200 pt-4">
-                <p class="font-serif text-xl tracking-tight text-stone-950">Enough room for discovery</p>
-                <p class="text-sm leading-6 text-stone-600">
-                  The PM is expected to investigate the problem, not just administrate delivery.
-                </p>
-              </div>
+          <div class="grid gap-3 sm:grid-cols-3">
+            <div class="surface-hairline px-4 py-4">
+              <p class="eyebrow-label !tracking-[0.22em]">Board standard</p>
+              <p class="mt-2 text-sm leading-6 text-zinc-700">Scope first. Title second.</p>
+            </div>
+            <div class="surface-hairline px-4 py-4">
+              <p class="eyebrow-label !tracking-[0.22em]">Publishing bar</p>
+              <p class="mt-2 text-sm leading-6 text-zinc-700">Fewer jobs, clearer mandate.</p>
+            </div>
+            <div class="surface-hairline px-4 py-4">
+              <p class="eyebrow-label !tracking-[0.22em]">Primary audience</p>
+              <p class="mt-2 text-sm leading-6 text-zinc-700">PMs who want ownership, not theater.</p>
             </div>
           </div>
-        </aside>
+        </div>
       </div>
+
+      <aside class="surface-panel px-6 py-7 sm:px-8 sm:py-8">
+        <div class="space-y-6">
+          <div class="space-y-2">
+            <p class="eyebrow-label">The board standard</p>
+            <h2 class="text-3xl font-semibold leading-[0.96] tracking-[-0.055em] text-zinc-950">
+              A product role should be legible before anyone applies.
+            </h2>
+          </div>
+
+          <div class="space-y-4">
+            {heroSignals.map((signal, index) => (
+              <div class:list={["space-y-2", index > 0 && "keyline"]}>
+                <p class="text-sm font-semibold tracking-[-0.03em] text-zinc-950">{signal.title}</p>
+                <p class="text-sm leading-6 text-zinc-600">{signal.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </aside>
     </section>
 
-    <section class="grid gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(18rem,0.9fr)]">
-      <div class="max-w-3xl space-y-5">
-        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">Why this exists</p>
-        <h2 class="font-serif text-4xl tracking-tight text-stone-950 sm:text-5xl">
-          The PM title has drifted.
-        </h2>
-        <p class="text-lg leading-8 text-stone-700">
-          Too many roles borrow the language of product management without the mandate. They sit
-          near roadmap work, but the actual job is buffering delivery, maintaining a backlog, or
-          translating requests between louder stakeholders.
+    <section class="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+      <div class="space-y-5">
+        <p class="eyebrow-label">Why this exists</p>
+        <h2 class="section-title max-w-3xl">The title kept expanding. The mandate kept shrinking.</h2>
+        <p class="lede-text max-w-3xl !text-[1.05rem] sm:!text-[1.15rem]">
+          The market has blurred product management into a catch-all role near planning, delivery,
+          or stakeholder coordination. The result is a lot of job descriptions that sound strategic
+          but function like operational buffering.
         </p>
-        <p class="text-base leading-7 text-stone-600">
-          That hurts candidates and employers alike. Candidates cannot tell what the work really is.
-          Employers end up hiring against a title instead of a responsibility set. This board exists
-          to make that difference legible before anyone wastes time.
+        <p class="body-copy max-w-2xl">
+          That creates noise for everyone. Candidates cannot tell what the work really is.
+          Employers publish vague roles and then wonder why the hiring loop misfires. This board
+          exists to make scope visible before either side wastes time.
         </p>
       </div>
 
-      <aside class="border border-stone-200 bg-white px-6 py-6 sm:px-7">
-        <div class="space-y-5">
-          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">We do not list</p>
-          <ul class="space-y-4">
-            {exclusions.map((item, index) => (
-              <li class:list={["space-y-1", index > 0 && "border-t border-stone-200 pt-4"]}>
-                <p class="font-serif text-xl tracking-tight text-stone-950">{item.title}</p>
-                <p class="text-sm leading-6 text-stone-600">{item.description}</p>
-              </li>
+      <aside class="surface-panel px-6 py-7 sm:px-8 sm:py-8">
+        <div class="space-y-4">
+          <p class="eyebrow-label">What we do not list</p>
+          <ul class="detail-list">
+            {exclusions.map((item) => (
+              <li>{item}</li>
             ))}
           </ul>
         </div>
@@ -157,19 +136,27 @@ const formatLabel = (value: string) =>
       <SectionIntro
         eyebrow="The three signals we filter for"
         headingTag="h2"
-        title="A PM role should own outcomes, decisions, and learning."
-        description="We are not looking for perfect job descriptions. We are looking for enough evidence that the role can function as actual product management."
+        title="Ownership, authority, and learning are the real line."
+        description="Roadmaps, artifacts, and ceremony can show up in many adjacent roles. The actual distinction is whether the PM can own a result, make consequential decisions, and generate learning."
       />
 
-      <div class="grid gap-5 lg:grid-cols-3">
-        {signals.map((signal) => (
-          <article class="border border-stone-200 bg-white px-6 py-7 sm:px-7">
-            <div class="space-y-4">
-              <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
-                Signal
-              </p>
-              <h3 class="font-serif text-2xl tracking-tight text-stone-950">{signal.title}</h3>
-              <p class="text-base leading-7 text-stone-700">{signal.description}</p>
+      <div class="grid gap-4 lg:grid-cols-3">
+        {heroSignals.map((signal, index) => (
+          <article class="surface-panel px-6 py-7 sm:px-7">
+            <div class="space-y-6">
+              <div class="flex items-center justify-between gap-3">
+                <p class="eyebrow-label">Signal 0{index + 1}</p>
+                <span class="text-sm font-semibold tracking-[-0.03em] text-zinc-400">
+                  0{index + 1}
+                </span>
+              </div>
+
+              <div class="space-y-3">
+                <h3 class="text-2xl font-semibold leading-[0.98] tracking-[-0.05em] text-zinc-950">
+                  {signal.title}
+                </h3>
+                <p class="body-copy">{signal.body}</p>
+              </div>
             </div>
           </article>
         ))}
@@ -177,70 +164,53 @@ const formatLabel = (value: string) =>
     </section>
 
     <section class="space-y-8">
-      <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-        <SectionIntro
-          eyebrow="Featured jobs"
-          headingTag="h2"
-          title="Current featured roles"
-          description="These featured listings are pulled directly from the job content collection. In the current MVP, they remain clearly labeled as sample content."
-        />
-
-        <div class="flex flex-wrap gap-3">
+      <SectionIntro
+        eyebrow="Featured jobs"
+        headingTag="h2"
+        title="A few current listings that fit the bar."
+        description="These are still demo entries in the MVP, but the layout and evidence model mirror how the board should feel when real jobs replace them."
+      >
+        <div class="flex flex-wrap gap-2">
           <Pill label={`${featuredJobs.length} featured`} />
-          <Pill label="Sample content only" />
+          <Pill label="Sample content" />
         </div>
-      </div>
+      </SectionIntro>
 
-      <div class="grid gap-5 lg:grid-cols-2">
+      <div class="grid gap-4 lg:grid-cols-3">
         {featuredJobs.map((job) => (
-          <article class="flex h-full flex-col border border-stone-200 bg-white px-6 py-7 sm:px-7">
-            <div class="space-y-5">
+          <article class="surface-panel px-6 py-7 sm:px-7">
+            <div class="flex h-full flex-col gap-6">
               <div class="flex flex-wrap gap-2">
                 <Pill label={job.data.contentStatus} />
-                <Pill label={formatLabel(job.data.archetype)} />
-                <Pill label={formatLabel(job.data.level)} />
+                <Pill label={formatJobFilterValue("level", job.data.level)} />
               </div>
 
-              <div class="space-y-2">
-                <p class="text-sm font-medium text-stone-600">{job.data.company}</p>
-                <h3 class="font-serif text-3xl tracking-tight text-stone-950">{job.data.title}</h3>
-                <p class="text-base leading-7 text-stone-700">{job.data.summary}</p>
+              <div class="space-y-3">
+                <p class="text-sm font-medium text-zinc-500">{job.data.company}</p>
+                <h3 class="text-[1.9rem] font-semibold leading-[0.98] tracking-[-0.05em] text-zinc-950">
+                  {job.data.title}
+                </h3>
+                <p class="text-sm leading-6 text-zinc-600">{job.data.summary}</p>
               </div>
 
-              <dl class="grid gap-3 text-sm text-stone-700 sm:grid-cols-3">
-                <div>
-                  <dt class="font-semibold text-stone-950">Location</dt>
-                  <dd>{job.data.location}</dd>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <div class="surface-hairline px-4 py-4">
+                  <p class="eyebrow-label !tracking-[0.22em]">Outcome signal</p>
+                  <p class="mt-2 text-sm leading-6 text-zinc-700">{job.data.outcomesOwned[0]}</p>
                 </div>
-                <div>
-                  <dt class="font-semibold text-stone-950">Remote</dt>
-                  <dd class="capitalize">{job.data.remote}</dd>
+                <div class="surface-hairline px-4 py-4">
+                  <p class="eyebrow-label !tracking-[0.22em]">Discovery signal</p>
+                  <p class="mt-2 text-sm leading-6 text-zinc-700">{job.data.discoveryModel}</p>
                 </div>
-                <div>
-                  <dt class="font-semibold text-stone-950">Stage</dt>
-                  <dd>{formatLabel(job.data.stage)}</dd>
-                </div>
-              </dl>
-            </div>
+              </div>
 
-            <div class="mt-6 grid gap-5 border-t border-stone-200 pt-5">
-              <div class="space-y-2">
-                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
-                  Outcome ownership
-                </p>
-                <p class="text-sm leading-6 text-stone-700">{job.data.outcomesOwned[0]}</p>
-              </div>
-              <div class="space-y-2">
-                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
-                  Decision rights
-                </p>
-                <p class="text-sm leading-6 text-stone-700">{job.data.decisionRights[0]}</p>
-              </div>
-              <div class="space-y-2">
-                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
-                  Discovery capacity
-                </p>
-                <p class="text-sm leading-6 text-stone-700">{job.data.discoveryModel}</p>
+              <div class="mt-auto flex items-center justify-between gap-3 keyline">
+                <div class="text-sm text-zinc-500">
+                  {job.data.location} · {formatJobFilterValue("remote", job.data.remote)}
+                </div>
+                <a class="button-secondary px-4 py-2.5" href={withBase(getJobDetailPath(job.data.slug))}>
+                  View Sample Role
+                </a>
               </div>
             </div>
           </article>
@@ -250,32 +220,29 @@ const formatLabel = (value: string) =>
 
     <CtaBlock
       eyebrow="For employers"
-      title="If you want strong PM candidates, publish a role with real scope."
-      description="Write the mandate clearly. Show what outcomes the PM owns, what decisions they can make, and how they are expected to learn. That is what attracts the right people."
+      title="If you want stronger PM candidates, publish a role with actual scope."
+      description="The best candidates are screening for the same things this board is screening for: what the PM owns, what the PM can decide, and how the PM is expected to learn."
       href="/for-employers"
       ctaLabel="For Employers"
     />
 
-    <section class="border-t border-stone-200 pt-10 sm:pt-12">
-      <div class="border border-stone-200 bg-white px-6 py-8 sm:px-8 sm:py-10">
-        <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <div class="max-w-3xl space-y-4">
-            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-stone-500">
-              Final cut
-            </p>
-            <h2 class="font-serif text-3xl tracking-tight text-stone-950 sm:text-4xl">
-              If the role does not own outcomes, decision rights, and discovery capacity, it does
-              not go on the board.
-            </h2>
-            <p class="text-base leading-7 text-stone-700">
-              The standard is the product. The job board is just the delivery mechanism.
-            </p>
-          </div>
+    <section class="surface-panel px-6 py-8 sm:px-8 sm:py-10 lg:px-10">
+      <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div class="max-w-3xl space-y-4">
+          <p class="eyebrow-label">Final cut</p>
+          <h2 class="section-title max-w-3xl">
+            The bar is simple: if the role does not own outcomes, decisions, and discovery, it does
+            not go on the board.
+          </h2>
+          <p class="body-copy max-w-2xl">
+            The point is not to look comprehensive. The point is to make real product scope easier
+            to recognize.
+          </p>
+        </div>
 
-          <div class="flex flex-wrap gap-3">
-            <a class={primaryLinkClasses} href={jobsHref}>Browse Jobs</a>
-            <a class={secondaryLinkClasses} href={methodologyHref}>See Methodology</a>
-          </div>
+        <div class="flex flex-wrap gap-3">
+          <a class="button-primary" href={jobsHref}>Browse Jobs</a>
+          <a class="button-secondary" href={employersHref}>For Employers</a>
         </div>
       </div>
     </section>
